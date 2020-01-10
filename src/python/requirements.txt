@@ -1,0 +1,2 @@
+bibtexparser==1.1.0
+zensols.actioncli>=1.0.18
