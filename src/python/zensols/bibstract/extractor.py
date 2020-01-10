@@ -17,7 +17,17 @@ logger = logging.getLogger(__name__)
 
 
 class RegexFileParser(object):
+    """Finds all instances of the citation references in a file.
+
+    """
     def __init__(self, pattern: re.Pattern, collector: set):
+        """Initialize.
+
+        :param pattern: the regular expression pattern used to find the
+                        references
+        :param collector: the set to add found references
+
+        """
         self.pattern = pattern
         self.collector = collector
 
@@ -28,30 +38,54 @@ class RegexFileParser(object):
 
 
 class Extractor(object):
+    """Extracts references, parses the BibTex master source file, and exports
+    matching references from the LaTex file.
+
+    """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
     REF_REGEX = re.compile(r'\{([a-zA-Z0-9]+?)\}')
 
     def __init__(self, master_bib: Path, texpath: Path):
+        """Initialize.
+
+        :param master_bib: the path to the master BibTex file
+        :param texpath: either a file or directory to recursively scan for
+                        files with LaTex citation references
+
+        """
         self.master_bib = master_bib
         self.texpath = texpath
 
     @property
     @persisted('_database')
     def database(self) -> BibDatabase:
+        """Return the BibTex Python object representation of master file.
+
+        """
         logger.info(f'parsing master bibtex file: {self.master_bib}')
         with open(self.master_bib) as f:
             return bibtexparser.load(f)
 
     @property
     def bibtex_ids(self) -> iter:
+        """Return all BibTex string IDs.  These could be BetterBibtex citation
+        references.
+
+        """
         return map(lambda e: e['ID'], self.database.entries)
 
     def _is_tex_file(self, path: Path) -> bool:
+        """Return whether or not path is a file that might contain citation references.
+
+        """
         return path.is_file() and \
             self.TEX_FILE_REGEX.match(path.name) is not None
 
     @property
     def tex_refs(self) -> set:
+        """Return the set of parsed citation references.
+
+        """
         tex_refs = set()
         parser = RegexFileParser(self.REF_REGEX, tex_refs)
         path = self.texpath
@@ -68,6 +102,9 @@ class Extractor(object):
 
     @property
     def export_ids(self) -> set:
+        """Return the set of BibTex references to be exported.
+
+        """
         bib = set(self.bibtex_ids)
         trefs = self.tex_refs
         return bib & trefs
@@ -85,7 +122,13 @@ class Extractor(object):
         for id in self.export_ids:
             print(id)
 
-    def export(self, writer=sys.stdout):
+    def export(self, writer: TextIOWrapper = sys.stdout):
+        """Export the master source BibTex matching citation references from the LaTex
+        file(s) and write them to ``writer``.
+
+        :param writer: the BibTex entry data sink
+
+        """
         bwriter = BibTexWriter()
         db = self.database.get_entry_dict()
         for id in sorted(self.export_ids):

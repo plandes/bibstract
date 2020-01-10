@@ -6,7 +6,6 @@ from pathlib import Path
 import unittest
 from zensols.bibstract import Extractor
 
-# logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +18,9 @@ class TestExtractor(unittest.TestCase):
     def test_bibkeys(self):
         extractor = Extractor(self.bibfile, None)
         ids = tuple(extractor.bibtex_ids)
-        should = 'deerwesterIndexingLatentSemantic1990', 'mikolovEfficientEstimationWord2013', 'biswasGraphBasedKeyword2018'
+        should = 'deerwesterIndexingLatentSemantic1990', \
+            'mikolovEfficientEstimationWord2013', \
+            'biswasGraphBasedKeyword2018'
         self.assertEqual(should, ids)
 
     def test_texkeys(self):

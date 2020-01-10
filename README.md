@@ -4,8 +4,23 @@
 [![PyPI][pypi-badge]][pypi-link]
 [![Python 3.7][python37-badge]][python37-link]
 
-Extract BibTex references from a Tex file and add them from a master BibTex
-file.
+This utility extracts [BibTex] references (a.k.a *markers*) from a [(La)Tex]
+file and copies entries from a source (a.k.a. *master* for this program) BibTex
+file.  The use case is exporting all [BetterBibtex] entries to a file on your
+file system, usually one that is updated as you add, remove and modify papers
+in [Zotero].
+
+**Note**:  While the use case was intended for use with Zoter and BetterBibtex,
+it will work on any BibTex file.
+
+The program does the following:
+1. Parses some large master source BibTex file.
+1. Parses a file or recursively all `.tex`, `.sty`, and `.cls` files
+   recursively in a directory.
+1. Copies the matching entries from the master source BibTex to standard out.
+
+The program makes the assumption that the BibTex entry IDs are unique as the
+matches are very loose when parsing the (La)Tex file.
 
 
 ## Obtaining
@@ -16,6 +31,20 @@ pip3 install zensols.bibstract
 ```
 
 Binaries are also available on [pypi].
+
+
+## Usage
+
+This is a command line program written that has the following usage (also use
+`--help`):
+
+* Print IDs in a master source file BibTex file: `bibstract printbib -m <file.bib>`.
+* Print cite references in a (La)Tex file: `bibstract printtex -t <file|directory>`
+* Print IDs that will be exported from the BibTex file: `bibstract printexport -m <file.bib> -t <file|directory>`
+* Export the matching entries to standard out: `bibstract export -m <file.bib> -t <file|directory>`
+
+Note that `file.bib` is the BibTex file and the `-t` takes a file or directory
+for where to find the file(s) that contain the citation references.
 
 
 ## Changelog
@@ -54,3 +83,8 @@ SOFTWARE.
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.bibstract.svg
 [python37-badge]: https://img.shields.io/badge/python-3.7-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
+
+[BetterBibtex]: https://github.com/retorquere/zotero-better-bibtex
+[Zotero]: https://www.zotero.org
+[BibTex]: http://www.bibtex.org
+[(La)Tex]: http://www.bibtex.org
