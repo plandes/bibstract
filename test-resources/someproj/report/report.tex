@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+
+\usepackage{someproj}
+%\usepackage[usesidenotes]{someproj}
+\usepackage{zenmath}
+\usepackage{zenreport}
+
+% academic
+\zrreportinitacademic%
+%\zrreportinitbold%
+
+% report style
+%\zrreportinit%
+%\zrrpage%
+%\zrrfontset%
+
+% options: alphabetic, authoryear (default), numeric-comp, alphabetic-verb, alphabetic-comp
+% https://www.overleaf.com/learn/latex/Biblatex_citation_styles
+\zzaddbiblatexstyle[numeric]{someproj.bib}
+
+% cite commands
+% \zzaddcommands%
+
+\begin{document}
+\zrreptitle%
+%\tableofcontents
+
+\begin{abstract}
+  Latent semantic analysis (LSA) is a technique in natural language processing,
+  in particular distributional semantics, of analyzing relationships between a
+  set of documents and the terms they contain by producing a set of concepts
+  related to the documents and terms.
+\end{abstract}
+
+
+\zrsec{Introduction}
+
+The \citeauthor{\deercite} method uses term document matrices~\cite{\deercite}.
+An example implementation is provided with the \lsacode.  The \lsacode\ is freely available.
+
+
+
+\zrsubsec{Complex Entity Matching Method}
+
+To better match entities in cases where the author uses several aliases one
+must use the writing style for this resolution.  One way we classify
+an author's writing style using \nlp\ methods are with LSA.
+
+This algorithm is outlined below:
+
+\begin{enumerate}
+\item Create a term frequency matrix.  In this step we count the number of
+  times each term appears in all documents using the rows as the terms and the
+  columns as the document.  For us a document is a message board entry, tweet,
+  a Facebook post, etc.  Call this matrix $X$.
+
+  See \zzfigref{lsa} for an example initial matrix.
+
+\zzfigure{1.7in}{lsa}{Initial Example Matrix.}
+
+\item Optionally weight each cell in $X$ with the TF/IDF frequency as an
+  optimization step.
+
+\svd{4in}{3}{sorted matrices}
+
+\item Perform SVD.  This is a special kind of eigendecomposition on $X$ by
+  separating such that:
+\[X = U \, \Sigma V\zztrans\]
+  where $X$ is our term frequency matrix, $U$ and $V$ are the singular vectors,
+  which are a set of orthogonal eigenvectors.
+  $\Sigma$ is a diagonal matrix composed of the eigenvalues of $U$ and $V$.
+  See \zzfigref{lsa2}.
+
+\svd{\textwidth}{2}{initial matrix}
+
+\item Sort vectors in $U$ and $V$ using the ordering of the descending {\it
+    eiganvalues} from $\Sigma$.  See \zzfigref{lsa3}.
+
+\item First, $k$ is set as the number of clusters a priori and represents the
+  number of authors we choose to cluster together.  Then create a new latent
+  word embedding vector set with:
+  \[\hat{X}_k = \sum_{i=1}^{k} U_{ik} \Sigma_{ii} V_{ki}\zztrans\]
+  using only the first $k$ rows/columns to {\it truncate} the original SVD
+  matrix.
+
+\svd{\textwidth}{4}{truncated matrix}
+
+\item Create matrix based on the cosine similarity:
+
+\[ \mathbf{S} = [S_{i,j}] \]
+where
+\[S_{i,j} = \textrm{sim}(\hat{X}_{k,i}, \hat{X}_{k,j})\]
+
+\item Run clustering on $S$ (k-means, k-centering, etc) on $\mathbf{S}$.
+\end{enumerate}
+
+The method can be combined with word
+vectors~\cite{mikolovEfficientEstimationWord2013}.  Also see the work of
+\authorcite{biswasGraphBasedKeyword2018}.
+
+
+%\clearpage
+%\pagebreak
+\medskip
+\printbibliography\
+
+%\printacronyms[include-classes=abbrev, name=Abbreviations]
+
+%\printacronyms[include-classes=def, name=Definitions]
+
+% this needs \makeindex in the preamble (someproj.sty) and tex-index in makefile
+%\printindex
+
+\end{document}

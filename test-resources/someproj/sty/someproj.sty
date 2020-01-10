@@ -1,0 +1,73 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{someproj}[01/09/2020 WRITE ME]
+\RequirePackage{kvoptions}
+\DeclareBoolOption{usesidenotes}
+\ProcessKeyvalOptions*
+
+% ------ doc variables
+\newcommand{\theauthor}{Paul Landes}
+\newcommand{\theauthoremail}{paul@example.com}
+\newcommand{\theorganization}{University of Illinois at Chicago}
+\newcommand{\theorganizationshort}{UIC}
+\newcommand{\theorganizationaddress}{Chicago, IL.\@ 60607, USA}
+\newcommand{\theorganizationdept}{Department of Computer Science}
+\newcommand{\theorganizationlogo}{uic.eps}
+
+% doc specific
+\newcommand{\doctitle}{WRITE ME}
+\newcommand{\doclongtitle}{WRITE ME}
+\newcommand{\doctype}{WRITE ME}
+\newcommand{\zzdrightfooter}{\theorganization}
+% ------
+
+%% fonts
+%% http://www.icl.utk.edu/~mgates3/docs/latex-fonts.pdf
+%\usepackage{bookman}
+%\usepackage{charter}
+%\usepackage{fourier}
+
+\usepackage{zensec}
+\ifsomeproj@usesidenotes
+  \usepackage[usesidenotes]{zenacro}
+\else
+  \usepackage{zenacro}
+  \usepackage{fullpage}
+\fi
+\usepackage{zenfig}
+\usepackage{zenacademic}
+% needed for unicode characters in bibliography if there are any
+\usepackage[utf8]{inputenc}
+
+% corpora
+\newcommand{\deercite}{deerwesterIndexingLatentSemantic1990}
+
+
+%% terms
+% NLP specific
+\zzdefnamedacro{nlp}{NLP}{natural language processing}
+\zzdefnamedacro{lsa}{LSA}{latent semantic analysis}
+\zzdefexpandacro{tfidf}{TF/IDF}{term frequency/inverse document frequency}
+\zzdefexpandacro{pos}{POS}{part of speech}
+\zzdefacroterm{corpora}
+\zzdefacroterm{corpus}
+\zzdefacroterm{annotations}
+\zzdefacro{anncorp}{annotated corpus}
+
+%% refs
+\zzdefurlacro{lsacode}{LSA classification repo}{https://github.com/chrisjmccormick/LSA\_Classification}
+
+
+%% options
+% uncomment to add an index
+%\makeindex
+
+
+%% commands (used only as an example--can torch this)
+\providecommand{\svd}[3]{
+\begin{figure*}[h!]
+\begin{center}
+\includegraphics[height=1.8in]{lsa#2.eps}
+\end{center}
+\caption{Singular value decomposition: #3}
+\label{fig:lsa#2}
+\end{figure*}}
