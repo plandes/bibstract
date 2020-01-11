@@ -8,11 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [0.0.2] - 2020-01-10
+### Added
+- Support for master source BibTex file to be configured in a resource file.
+
+
 ## [0.0.1] - 2020-01-09
 ### Added
 - Initial version.
 
 
 <!-- links -->
-[Unreleased]: https://github.com/plandes/bibstract/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/plandes/bibstract/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/plandes/bibstract/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/plandes/bibstract/compare/v0.0.0...v0.0.1

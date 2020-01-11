@@ -4,6 +4,8 @@
 PROJ_TYPE=	python
 BIB_FILE=	test-resources/someproj/sty/someproj.bib
 TEX_PATH=	test-resources/someproj
+CONFIG=		test-resources/bibstract.conf
+PY_TEST_DEPS=	testcli
 
 include ./zenbuild/main.mk
 
@@ -22,3 +24,10 @@ testexportkeys:
 .PHONY:		testexport
 testexport:
 	make PYTHON_BIN_ARGS="export -m $(BIB_FILE) -t $(TEX_PATH)" run
+
+.PHONY:		testconfigexport
+testconfigexport:
+	make PYTHON_BIN_ARGS="export -c $(CONFIG) -t $(TEX_PATH)" run
+
+.PHONY:		testcli
+testcli:	testbibkeys testtexkeys testexportkeys testexport testconfigexport

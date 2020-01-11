@@ -48,5 +48,8 @@
   "fourier",
   "lsa",
   "enumerate",
-  "NLP"
+  "NLP",
+  "i",
+  "j",
+  "charikarClusteringMinimizeSum2004"
 ]

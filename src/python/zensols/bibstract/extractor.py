@@ -7,11 +7,13 @@ import sys
 import logging
 import re
 from pathlib import Path
+from itertools import chain
 from io import TextIOWrapper
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from zensols.actioncli import persisted
+from zensols.bibstract import AppConfig
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,8 @@ class RegexFileParser(object):
     """Finds all instances of the citation references in a file.
 
     """
+    MULTI_REF_REGEX = re.compile(r'\s*,\s*')
+
     def __init__(self, pattern: re.Pattern, collector: set):
         """Initialize.
 
@@ -34,6 +38,8 @@ class RegexFileParser(object):
     def find(self, fileobj: TextIOWrapper):
         for line in fileobj.readlines():
             refs = self.pattern.findall(line)
+            refs = chain.from_iterable(
+                map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
             self.collector.update(refs)
 
 
@@ -43,9 +49,9 @@ class Extractor(object):
 
     """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
-    REF_REGEX = re.compile(r'\{([a-zA-Z0-9]+?)\}')
+    REF_REGEX = re.compile(r'\{([a-zA-Z0-9,]+?)\}')
 
-    def __init__(self, master_bib: Path, texpath: Path):
+    def __init__(self, config: AppConfig, texpath: Path):
         """Initialize.
 
         :param master_bib: the path to the master BibTex file
@@ -53,8 +59,8 @@ class Extractor(object):
                         files with LaTex citation references
 
         """
-        self.master_bib = master_bib
-        self.texpath = texpath
+        self.master_bib = config.get_option_path('master_bib', expect=False)
+        self.texpath = None if texpath is None else Path(texpath)
 
     @property
     @persisted('_database')
