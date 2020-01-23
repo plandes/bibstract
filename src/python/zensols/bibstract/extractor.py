@@ -1,4 +1,5 @@
-"""Extract BibTex references from a Tex file and add them from a master BibTex file.
+"""Extract BibTex references from a Tex file and add them from a master BibTex
+file.
 
 """
 __author__ = 'plandes'
