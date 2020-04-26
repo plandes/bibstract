@@ -3,7 +3,7 @@
 """
 __author__ = 'Paul Landes'
 
-from zensols.actioncli import (
+from zensols.config import (
     CommandLineConfig,
     ExtendedInterpolationConfig,
 )

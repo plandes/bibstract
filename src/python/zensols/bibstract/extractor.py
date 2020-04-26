@@ -13,7 +13,7 @@ from io import TextIOWrapper
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
-from zensols.actioncli import persisted
+from zensols.persist import persisted
 from zensols.bibstract import AppConfig
 
 logger = logging.getLogger(__name__)

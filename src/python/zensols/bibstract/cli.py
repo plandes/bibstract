@@ -4,7 +4,7 @@
 __author__ = 'plandes'
 
 import sys
-from zensols.actioncli import OneConfPerActionOptionsCliEnv
+from zensols.cli import OneConfPerActionOptionsCliEnv
 from zensols.bibstract import AppConfig, Extractor
 
 
