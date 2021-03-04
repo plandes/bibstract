@@ -60,7 +60,8 @@ class Extractor(object):
                         files with LaTex citation references
 
         """
-        self.master_bib = config.get_option_path('master_bib', expect=False)
+        if config.has_option('master_bib'):
+            self.master_bib = config.get_option_path('master_bib')
         self.texpath = None if texpath is None else Path(texpath)
 
     @property
