@@ -13,6 +13,7 @@ from io import TextIOWrapper
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
+from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
 from zensols.bibstract import AppConfig
 
@@ -71,8 +72,10 @@ class Extractor(object):
 
         """
         logger.info(f'parsing master bibtex file: {self.master_bib}')
+        parser = BibTexParser()
+        parser.ignore_nonstandard_types = False
         with open(self.master_bib) as f:
-            return bibtexparser.load(f)
+            return bibtexparser.load(f, parser)
 
     @property
     def bibtex_ids(self) -> iter:
