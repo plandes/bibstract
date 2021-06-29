@@ -2,7 +2,7 @@
 
 [![Travis CI Build Status][travis-badge]][travis-link]
 [![PyPI][pypi-badge]][pypi-link]
-[![Python 3.7][python37-badge]][python37-link]
+[![Python 3.9][python37-badge]][python37-link]
 
 This utility extracts [BibTex] references (a.k.a *markers*) from a [(La)Tex]
 file and copies entries from a source, which the *master BibTex file*.  The use
@@ -79,7 +79,7 @@ An extensive changelog is available [here](CHANGELOG.md).
 
 ## License
 
-Copyright (c) 2020 Paul Landes
+Copyright (c) 2020 - 2021 Paul Landes
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -106,7 +106,7 @@ SOFTWARE.
 [pypi]: https://pypi.org/project/zensols.bibstract/
 [pypi-link]: https://pypi.python.org/pypi/zensols.bibstract
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.bibstract.svg
-[python37-badge]: https://img.shields.io/badge/python-3.7-blue.svg
+[python37-badge]: https://img.shields.io/badge/python-3.9-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
 
 [configuration file]: test-resources/bibstract.conf
