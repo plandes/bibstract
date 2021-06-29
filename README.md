@@ -43,6 +43,21 @@ This is a command line program written that has the following usage (also use
 * Export the matching entries to standard out: `bibstract export <file|directory>`
 
 
+## Converters
+
+A set of *converters* can be specified in the [configuration file], which
+modify each parsed BibTex entry in succession.  Currently there the following:
+* **date_year**: Converts the year part of a date field to a year.  This is
+  useful when using Zotero's Better Biblatex extension that produces BibLatex
+  formats, but you need BibTex entries.
+* **copy**: Copy or move one or more fields in the entry.  This is useful when
+  your bibliography style expects one key, but the output (i.e.BibLatex)
+  outputs a different named field). When `destructive` is set to ``True``, this
+  copy operation becomes a move.
+
+Converters can be set be set and configured in the [configuration file].
+
+
 ## Configuration
 
 A [configuration file] must be given, whose location is either given with a
@@ -52,24 +67,26 @@ An example [configuration file] is available, which has only one INI section
 `default` with option `master_bib` with the master BibTex file.
 
 
-## Converters
+### Example Configuration File
 
-A set of *converters* can be specified in the [configuration file], which
-modify each parsed BibTex entry in succession.  Currently there the following:
+The following example configuration file points to the a home directory file
+where you tell where [BetterBibtex] to export.  It then specifies to convert
+dates with years (deleting the `date` field after)when creating the output.
 
-## date_year
+In addition, it copies the `journaltitle` (exported by [BetterBibtex]) to
+`journal`, which is used by BibTex.  This converter, called *replace* is
+configured the `replace_converter` entry.
 
-Converts the year part of a date field to a year.  This is useful when using
-Zotero's Better Biblatex extension that produces BibLatex formats, but you need
-BibTex entries.
+```ini
+[default]
+master_bib = ${env:home}/.zotero-betterbib.bib
+converters = date_year_destructive, replace
 
-
-## copy
-
-Copy or move one or more fields in the entry.  This is useful when your
-bibliography style expects one key, but the output (i.e.BibLatex) outputs a
-different named field). When `destructive` is set to ``True``, this copy
-operation becomes a move.
+[replace_converter]
+class_name = zensols.bibstract.CopyOrMoveConverter
+fields = dict: {'journaltitle': 'journal'}
+destructive = False
+```
 
 
 ## Changelog
@@ -109,7 +126,7 @@ SOFTWARE.
 [python37-badge]: https://img.shields.io/badge/python-3.9-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
 
-[configuration file]: test-resources/bibstract.conf
+[configuration file]: #example-configuration-file
 [BetterBibtex]: https://github.com/retorquere/zotero-better-bibtex
 [Zotero]: https://www.zotero.org
 [BibTex]: http://www.bibtex.org
