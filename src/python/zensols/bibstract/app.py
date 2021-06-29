@@ -8,15 +8,14 @@ from dataclasses import dataclass, field
 import logging
 from pathlib import Path
 from zensols.config import ConfigFactory
-from . import Extractor
+from . import Extractor, ConverterLibrary
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
 class Exporter(object):
-    """This utility extracts Bib(La)Tex references (a.k.a *markers*) from a
-    (La)Tex.
+    """This utility extracts Bib(La)Tex references from a (La)Tex.
 
     """
     CLI_META = {'mnemonic_excludes': {'get_extractor'},
@@ -28,6 +27,9 @@ class Exporter(object):
     config_factory: ConfigFactory = field()
     """The configuration factory used to create this instance."""
 
+    converter_library: ConverterLibrary = field()
+    """The converter library used to print what's available."""
+
     log_name: str = field()
     """The name of the package logger."""
 
@@ -36,6 +38,10 @@ class Exporter(object):
 
     def _set_log_level_info(self):
         logging.getLogger(self.log_name).setLevel(logging.INFO)
+
+    def converters(self):
+        """List converters and their information."""
+        self.converter_library.write()
 
     def print_bibtex_ids(self):
         """Print BibTex citation keys."""

@@ -3,14 +3,17 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Set, Dict
+from typing import Set, Dict, List
 from dataclasses import dataclass, field
 import logging
+import sys
 from itertools import chain
 from datetime import datetime
-from io import TextIOWrapper
+from io import TextIOBase
 import re
 import dateparser
+from zensols.config import Writable
+from zensols.introspect import ClassImporter, ClassInspector, Class
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +41,7 @@ class RegexFileParser(object):
     collector: Set[str] = field(default_factory=lambda: set())
     """The set to add found references."""
 
-    def find(self, fileobj: TextIOWrapper):
+    def find(self, fileobj: TextIOBase):
         for line in fileobj.readlines():
             refs = self.pattern.findall(line)
             refs = chain.from_iterable(
@@ -86,6 +89,24 @@ class Converter(object):
 
 
 @dataclass
+class ConverterLibrary(Writable):
+    converter_class_names: List[str] = field()
+    """The list of converter class names currently available."""
+
+    def write(self, depth: int = 0, writer: TextIOBase = sys.stdout,
+              markdown_depth: int = 1):
+        for cname in self.converter_class_names:
+            cls = ClassImporter(cname).get_class()
+            inspector = ClassInspector(cls)
+            mcls: Class = inspector.get_class()
+            header = '#' * markdown_depth
+            self._write_line(f'{header} Converter {cls.NAME}', depth, writer)
+            writer.write('\n')
+            self._write_line(mcls.doc.text, depth, writer)
+            writer.write('\n\n')
+
+
+@dataclass
 class DateToYearConverter(Converter):
     """Converts the year part of a date field to a year.  This is useful when using
     Zotero's Better Biblatex extension that produces BibLatex formats, but you
@@ -93,6 +114,7 @@ class DateToYearConverter(Converter):
 
     """
     NAME = 'date_year'
+    """The name of the converter."""
 
     def _convert(self, entry: Dict[str, str]):
         if 'date' in entry:
@@ -110,11 +132,12 @@ class CopyOrMoveConverter(Converter):
     bibliography style expects one key, but the output (i.e.BibLatex) outputs a
     different named field).
 
-    When :obj:`destructive` is set to ``True``, this copy operation becomes a
+    When :obj:``destructive`` is set to ``True``, this copy operation becomes a
     move.
 
     """
     NAME = 'copy'
+    """The name of the converter."""
 
     fields: Dict[str, str] = field(default_factory=dict)
     """The source to target list of fields specifying which keys to keys get copied

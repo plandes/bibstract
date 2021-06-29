@@ -5,10 +5,9 @@
 [![Python 3.7][python37-badge]][python37-link]
 
 This utility extracts [BibTex] references (a.k.a *markers*) from a [(La)Tex]
-file and copies entries from a source (a.k.a. *master* for this program) BibTex
-file.  The use case is exporting all [BetterBibtex] entries to a file on your
-file system, usually one that is updated as you add, remove and modify papers
-in [Zotero].
+file and copies entries from a source, which the *master BibTex file*.  The use
+case is exporting all [BetterBibtex] entries to a file on your file system,
+usually one that is updated as you add, remove and modify papers in [Zotero].
 
 **Note**:  While the use case was intended for use with Zoter and BetterBibtex,
 it will work on any BibTex file.
@@ -38,13 +37,39 @@ Binaries are also available on [pypi].
 This is a command line program written that has the following usage (also use
 `--help`):
 
-* Print IDs in a master source file BibTex file: `bibstract printbib -m <file.bib>`.
-* Print cite references in a (La)Tex file: `bibstract printtex -t <file|directory>`
-* Print IDs that will be exported from the BibTex file: `bibstract printexport -m <file.bib> -t <file|directory>`
-* Export the matching entries to standard out: `bibstract export -m <file.bib> -t <file|directory>`
+* Print IDs in a master source file BibTex file: `bibstract showbib`.
+* Print cite references in a (La)Tex file: `bibstract showtex <file|directory>`
+* Print IDs that will be exported from the BibTex file: `bibstract showexport <file|directory>`
+* Export the matching entries to standard out: `bibstract export <file|directory>`
 
-Note that `file.bib` is the BibTex file and the `-t` takes a file or directory
-for where to find the file(s) that contain the citation references.
+
+## Configuration
+
+A [configuration file] must be given, whose location is either given with a
+`-c` command line argument, or set in the environment variable `BIBSTRACTRC`.
+
+An example [configuration file] is available, which has only one INI section
+`default` with option `master_bib` with the master BibTex file.
+
+
+## Converters
+
+A set of *converters* can be specified in the [configuration file], which
+modify each parsed BibTex entry in succession.  Currently there the following:
+
+## date_year
+
+Converts the year part of a date field to a year.  This is useful when using
+Zotero's Better Biblatex extension that produces BibLatex formats, but you need
+BibTex entries.
+
+
+## copy
+
+Copy or move one or more fields in the entry.  This is useful when your
+bibliography style expects one key, but the output (i.e.BibLatex) outputs a
+different named field). When `destructive` is set to ``True``, this copy
+operation becomes a move.
 
 
 ## Changelog
@@ -84,6 +109,7 @@ SOFTWARE.
 [python37-badge]: https://img.shields.io/badge/python-3.7-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
 
+[configuration file]: test-resources/bibstract.conf
 [BetterBibtex]: https://github.com/retorquere/zotero-better-bibtex
 [Zotero]: https://www.zotero.org
 [BibTex]: http://www.bibtex.org

@@ -14,7 +14,7 @@ class TestBase(unittest.TestCase):
             self.CONF = 'test-resources/bibstract.conf'
         self.app: Exporter = InstanceFactory(
             config_file=self.CONF,
-            args='export pacify'.split(),
+            args='export _'.split(),
             reload_factory=False).instance()
         self.extractor: Extractor = self.app.get_extractor(
             Path('test-resources/someproj'))

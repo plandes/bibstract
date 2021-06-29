@@ -21,8 +21,9 @@ def main(args: List[str], **factory_kwargs: Dict[str, Any]):
 def proto():
     print('-->proto')
     try:
-        args = 'bibstract -c test-resources/bibstract.conf export test-resources/someproj'.split()
-        main(args, reload_factory=True)
+        args = '_ -c test-resources/bibstract.conf export test-resources/someproj'.split()
+        args = '_ converters'.split()
+        main(args, reload_pattern='^zensols.bibstract.*')
     except SystemExit as e:
         print(f'exit: {e}')
 

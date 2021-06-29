@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.0.3] - 2021-06-29
 ### Changed
 - Upgraded to application based CLI.
+- Changed name of `print`* action mnemonics to `show`*.
+
+### Removed
+- Master BibTex file is no longer available on the command line.  It must be
+  given in the configuration file
 
 ### Added
 - BibTex entry conversion: date to year, and field copy/moving.
