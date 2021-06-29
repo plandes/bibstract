@@ -4,42 +4,22 @@ file.
 """
 __author__ = 'plandes'
 
-from typing import Set
+from typing import List, Dict, Tuple
 from dataclasses import dataclass, field
 import sys
 import logging
 import re
 from pathlib import Path
-from itertools import chain
 from io import TextIOWrapper
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
+from zensols.config import ConfigFactory
+from . import RegexFileParser, Converter
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class RegexFileParser(object):
-    """Finds all instances of the citation references in a file.
-
-    """
-    MULTI_REF_REGEX = re.compile(r'\s*,\s*')
-
-    pattern: re.Pattern = field()
-    """The regular expression pattern used to find the references."""
-
-    collector: Set[str] = field()
-    """The set to add found references."""
-
-    def find(self, fileobj: TextIOWrapper):
-        for line in fileobj.readlines():
-            refs = self.pattern.findall(line)
-            refs = chain.from_iterable(
-                map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
-            self.collector.update(refs)
 
 
 @dataclass
@@ -49,7 +29,9 @@ class Extractor(object):
 
     """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
-    REF_REGEX = re.compile(r'\{([a-zA-Z0-9,]+?)\}')
+
+    config_factory: ConfigFactory = field()
+    """The configuration factory used to create the converters."""
 
     master_bib: Path = field()
     """The path to the master BibTex file."""
@@ -59,6 +41,20 @@ class Extractor(object):
     references.
 
     """
+
+    converter_names: List[str] = field(default=None)
+    """A list of converter names used to convert to BibTex entries."""
+
+    def __post_init__(self):
+        self.converter_names = list(filter(
+            lambda x: x != 'identity', self.converter_names))
+
+    @property
+    @persisted('_converters')
+    def converters(self) -> Tuple[Converter]:
+        fac = self.config_factory
+        return tuple(map(lambda n: fac.new_instance(f'{n}_converter'),
+                         self.converter_names))
 
     @property
     @persisted('_database')
@@ -92,8 +88,7 @@ class Extractor(object):
         """Return the set of parsed citation references.
 
         """
-        tex_refs = set()
-        parser = RegexFileParser(self.REF_REGEX, tex_refs)
+        parser = RegexFileParser()
         path = self.texpath
         logger.info(f'parsing references from Tex file: {path}')
         if path.is_file():
@@ -104,7 +99,7 @@ class Extractor(object):
         for path in paths:
             with open(path) as f:
                 parser.find(f)
-        return tex_refs
+        return parser.collector
 
     @property
     def extract_ids(self) -> set:
@@ -128,6 +123,21 @@ class Extractor(object):
         for id in self.extract_ids:
             print(id)
 
+    @property
+    @persisted('_entries')
+    def entries(self) -> Dict[str, Dict[str, str]]:
+        """The BibTex entries parsed from the master bib file."""
+        db = self.database.get_entry_dict()
+        entries = {}
+        for did in sorted(self.extract_ids):
+            entry = db[did]
+            for conv in self.converters:
+                if logger.isEnabledFor(logging.DEBUG):
+                    logger.debug(f'applying {conv}')
+                entry = conv.convert(entry)
+            entries[did] = entry
+        return entries
+
     def extract(self, writer: TextIOWrapper = sys.stdout):
         """Extract the master source BibTex matching citation references from the LaTex
         file(s) and write them to ``writer``.
@@ -136,10 +146,8 @@ class Extractor(object):
 
         """
         bwriter = BibTexWriter()
-        db = self.database.get_entry_dict()
-        for id in sorted(self.extract_ids):
-            entry = db[id]
-            logger.info(f'writing entry {id}')
+        for bid, entry in self.entries.items():
+            logger.info(f'writing entry {bid}')
             writer.write(bwriter._entry_to_bibtex(entry))
-            logger.debug(f'extracting: {id}: <{entry}>')
+            logger.debug(f'extracting: {bid}: <{entry}>')
         writer.flush()

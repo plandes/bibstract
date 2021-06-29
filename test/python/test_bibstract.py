@@ -1,4 +1,3 @@
-import logging
 import sys
 import json
 from pathlib import Path
@@ -7,21 +6,21 @@ import unittest
 from zensols.bibstract import Exporter, Extractor
 from instfac import InstanceFactory
 
-if 0:
-    logging.basicConfig(level=logging.DEBUG)
-    logger = logging.getLogger(__name__)
 
-
-class TestMainApplication(unittest.TestCase):
+class TestBase(unittest.TestCase):
     def setUp(self):
-        texpath = Path('test-resources/someproj')
-        self.app: Exporter = InstanceFactory(
-            ('-c test-resources/bibstract.conf --level warn ' +
-             'export pacify').split(),
-            reload_factory=False).instance()
         self.maxDiff = sys.maxsize
-        self.extractor: Extractor = self.app.get_extractor(texpath)
+        if not hasattr(self, 'CONF'):
+            self.CONF = 'test-resources/bibstract.conf'
+        self.app: Exporter = InstanceFactory(
+            config_file=self.CONF,
+            args='export pacify'.split(),
+            reload_factory=False).instance()
+        self.extractor: Extractor = self.app.get_extractor(
+            Path('test-resources/someproj'))
 
+
+class TestExtractor(TestBase):
     def test_bibkeys(self):
         ids = tuple(self.extractor.bibtex_ids)
         should = 'deerwesterIndexingLatentSemantic1990', \
@@ -42,9 +41,25 @@ class TestMainApplication(unittest.TestCase):
         ids = sorted(self.extractor.extract_ids)
         self.assertEqual(should, ids)
 
+
+class TestExport(TestBase):
     def test_export(self):
         sio = StringIO()
         self.extractor.extract(sio)
         with open('test-resources/export.bib') as f:
             should = f.read()
         self.assertEqual(should, sio.getvalue())
+
+
+class TestConverters(TestBase):
+    def setUp(self):
+        self.CONF = 'test-resources/bibstract-bibtex.conf'
+        super().setUp()
+
+    def test_bibtex(self):
+        with open('test-resources/date-convert.json') as f:
+            should = json.load(f)
+        id_to_dates = {}
+        for bid, entry in self.extractor.entries.items():
+            id_to_dates[bid] = f"{entry['date']} -> {entry['year']}"
+        self.assertEqual(should, id_to_dates)

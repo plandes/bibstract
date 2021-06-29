@@ -28,15 +28,11 @@ class Exporter(object):
     config_factory: ConfigFactory = field()
     """The configuration factory used to create this instance."""
 
-    master_bib: Path = field()
-    """The path to the master BibTex file."""
-
     log_name: str = field()
     """The name of the package logger."""
 
     def get_extractor(self, texpath: Path = None) -> Extractor:
-        return self.config_factory.new_instance(
-            'extractor', self.master_bib, texpath=texpath)
+        return self.config_factory.new_instance('extractor', texpath=texpath)
 
     def _set_log_level_info(self):
         logging.getLogger(self.log_name).setLevel(logging.INFO)
