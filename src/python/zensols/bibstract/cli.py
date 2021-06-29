@@ -6,6 +6,7 @@ __author__ = 'Paul Landes'
 
 from typing import List, Any, Dict
 from dataclasses import dataclass
+import sys
 from pathlib import Path
 from zensols.config import DictionaryConfig
 from zensols.cli import ApplicationFactory
@@ -22,6 +23,6 @@ class BibstractApplicationFactory(ApplicationFactory):
                    **kwargs)
 
 
-def main(args: List[str], **kwargs: Dict[str, Any]) -> Any:
+def main(args: List[str] = sys.argv, **kwargs: Dict[str, Any]) -> Any:
     cli = BibstractApplicationFactory.instance(**kwargs)
     cli.invoke(args)
