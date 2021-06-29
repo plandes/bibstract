@@ -23,6 +23,6 @@ class BibstractApplicationFactory(ApplicationFactory):
                    **kwargs)
 
 
-def main(args: List[str] = sys.argv, **kwargs: Dict[str, Any]) -> Any:
+def main(args: List[str] = sys.argv[1:], **kwargs: Dict[str, Any]) -> Any:
     cli = BibstractApplicationFactory.instance(**kwargs)
     cli.invoke(args)

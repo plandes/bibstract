@@ -51,6 +51,8 @@ class Converter(object):
     """A base class to convert fields of a BibTex entry (which is of type ``dict``)
     to another field.
 
+    Subclasses should override :meth:`_convert`.
+
     """
     name: str = field()
     """The name of the converter, which is populated from the section name."""
@@ -62,6 +64,21 @@ class Converter(object):
     """
 
     def convert(self, entry: Dict[str, str]) -> Dict[str, str]:
+        """Convert and return a new entry.
+
+        :param entry: the source data to transform
+
+        :return: a new instance of a ``dict`` with the transformed data
+        """
+        entry = dict(entry)
+        self._convert(entry)
+        return entry
+
+    def _convert(self, entry: Dict[str, str]):
+        """The templated method subclasses should extend.  The default base class
+        implementation is to return what's given as an identity mapping.
+
+        """
         return entry
 
     def __str__(self) -> str:
@@ -77,7 +94,7 @@ class DateToYearConverter(Converter):
     """
     NAME = 'date_year'
 
-    def convert(self, entry: Dict[str, str]) -> Dict[str, str]:
+    def _convert(self, entry: Dict[str, str]):
         if 'date' in entry:
             dt: datetime = dateparser.parse(entry['date'])
             if logger.isEnabledFor(logging.DEBUG):
@@ -85,4 +102,29 @@ class DateToYearConverter(Converter):
             entry['year'] = str(dt.year)
             if self.destructive:
                 del entry['date']
-        return entry
+
+
+@dataclass
+class CopyOrMoveConverter(Converter):
+    """Copy or move one or more fields in the entry.  This is useful when your
+    bibliography style expects one key, but the output (i.e.BibLatex) outputs a
+    different named field).
+
+    When :obj:`destructive` is set to ``True``, this copy operation becomes a
+    move.
+
+    """
+    NAME = 'copy'
+
+    fields: Dict[str, str] = field(default_factory=dict)
+    """The source to target list of fields specifying which keys to keys get copied
+    or moved.
+
+    """
+
+    def _convert(self, entry: Dict[str, str]):
+        for src, dst in self.fields.items():
+            if src in entry:
+                entry[dst] = entry[src]
+                if self.destructive:
+                    del entry[src]
