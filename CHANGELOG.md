@@ -8,23 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
-## [0.0.3] - 2020-04-25
-### Changed
-- Upgrade to ``zensols.util`` 1.2.0.
-
-
-## [0.0.2] - 2020-01-10
-### Added
-- Support for master source BibTex file to be configured in a resource file.
-
-
-## [0.0.1] - 2020-01-09
+## [0.0.1] - 2021-06-28
 ### Added
 - Initial version.
 
 
 <!-- links -->
-[Unreleased]: https://github.com/plandes/bibstract/compare/v0.0.3...HEAD
-[0.0.3]: https://github.com/plandes/bibstract/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/plandes/bibstract/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/plandes/bibstract/compare/v0.0.0...v0.0.1
+[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/Paul Landes/bibstract/compare/v0.0.0...v0.0.1

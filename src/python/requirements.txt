@@ -1,2 +1,2 @@
 bibtexparser==1.1.0
-zensols.util>=1.2.0
+zensols.util>=1.5.0

@@ -1,12 +1,13 @@
 from pathlib import Path
 from zensols.pybuild import SetupUtil
 
-SetupUtil(
+su = SetupUtil(
     setup_path=Path(__file__).parent.absolute(),
     name="zensols.bibstract",
     package_names=['zensols', 'resources'],
     # package_data={'': ['*.html', '*.js', '*.css', '*.map', '*.svg']},
-    description='Extract BibTex references from a Tex file and add them from a master BibTex file.',
+    package_data={'': ['*.conf', '*.json', '*.yml']},
+    description='This utility extracts Bib(La)Tex references (a.k.a *markers*) from a (La)Tex.',
     user='plandes',
     project='bibstract',
     keywords=['tooling'],

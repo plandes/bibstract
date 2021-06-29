@@ -4,6 +4,8 @@ file.
 """
 __author__ = 'plandes'
 
+from typing import Set
+from dataclasses import dataclass, field
 import sys
 import logging
 import re
@@ -15,27 +17,22 @@ from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
-from zensols.bibstract import AppConfig
 
 logger = logging.getLogger(__name__)
 
 
+@dataclass
 class RegexFileParser(object):
     """Finds all instances of the citation references in a file.
 
     """
     MULTI_REF_REGEX = re.compile(r'\s*,\s*')
 
-    def __init__(self, pattern: re.Pattern, collector: set):
-        """Initialize.
+    pattern: re.Pattern = field()
+    """The regular expression pattern used to find the references."""
 
-        :param pattern: the regular expression pattern used to find the
-                        references
-        :param collector: the set to add found references
-
-        """
-        self.pattern = pattern
-        self.collector = collector
+    collector: Set[str] = field()
+    """The set to add found references."""
 
     def find(self, fileobj: TextIOWrapper):
         for line in fileobj.readlines():
@@ -45,25 +42,23 @@ class RegexFileParser(object):
             self.collector.update(refs)
 
 
+@dataclass
 class Extractor(object):
-    """Extracts references, parses the BibTex master source file, and exports
+    """Extracts references, parses the BibTex master source file, and extracts
     matching references from the LaTex file.
 
     """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
     REF_REGEX = re.compile(r'\{([a-zA-Z0-9,]+?)\}')
 
-    def __init__(self, config: AppConfig, texpath: Path):
-        """Initialize.
+    master_bib: Path = field()
+    """The path to the master BibTex file."""
 
-        :param master_bib: the path to the master BibTex file
-        :param texpath: either a file or directory to recursively scan for
-                        files with LaTex citation references
+    texpath: Path = field(default=None)
+    """Either a file or directory to recursively scan for files with LaTex citation
+    references.
 
-        """
-        if config.has_option('master_bib'):
-            self.master_bib = config.get_option_path('master_bib')
-        self.texpath = None if texpath is None else Path(texpath)
+    """
 
     @property
     @persisted('_database')
@@ -112,8 +107,8 @@ class Extractor(object):
         return tex_refs
 
     @property
-    def export_ids(self) -> set:
-        """Return the set of BibTex references to be exported.
+    def extract_ids(self) -> set:
+        """Return the set of BibTex references to be extracted.
 
         """
         bib = set(self.bibtex_ids)
@@ -129,12 +124,12 @@ class Extractor(object):
         for ref in self.tex_refs:
             print(ref)
 
-    def print_exported_ids(self):
-        for id in self.export_ids:
+    def print_extracted_ids(self):
+        for id in self.extract_ids:
             print(id)
 
-    def export(self, writer: TextIOWrapper = sys.stdout):
-        """Export the master source BibTex matching citation references from the LaTex
+    def extract(self, writer: TextIOWrapper = sys.stdout):
+        """Extract the master source BibTex matching citation references from the LaTex
         file(s) and write them to ``writer``.
 
         :param writer: the BibTex entry data sink
@@ -142,9 +137,9 @@ class Extractor(object):
         """
         bwriter = BibTexWriter()
         db = self.database.get_entry_dict()
-        for id in sorted(self.export_ids):
+        for id in sorted(self.extract_ids):
             entry = db[id]
             logger.info(f'writing entry {id}')
             writer.write(bwriter._entry_to_bibtex(entry))
-            logger.debug(f'exporting: {id}: <{entry}>')
+            logger.debug(f'extracting: {id}: <{entry}>')
         writer.flush()

@@ -1,24 +1,29 @@
-import sys
 import logging
+import sys
 import json
-import io
 from pathlib import Path
+from io import StringIO
 import unittest
-from zensols.bibstract import AppConfig, Extractor
+from zensols.bibstract import Exporter, Extractor
+from instfac import InstanceFactory
 
-logger = logging.getLogger(__name__)
+if 0:
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
 
 
-class TestExtractor(unittest.TestCase):
+class TestMainApplication(unittest.TestCase):
     def setUp(self):
-        #self.bibfile = Path('test-resources/someproj/sty/someproj.bib')
-        self.texpath = Path('test-resources/someproj')
+        texpath = Path('test-resources/someproj')
+        self.app: Exporter = InstanceFactory(
+            ('-c test-resources/bibstract.conf --level warn ' +
+             'export pacify').split(),
+            reload_factory=False).instance()
         self.maxDiff = sys.maxsize
-        self.config = AppConfig('test-resources/bibstract.conf')
+        self.extractor: Extractor = self.app.get_extractor(texpath)
 
     def test_bibkeys(self):
-        extractor = Extractor(self.config, None)
-        ids = tuple(extractor.bibtex_ids)
+        ids = tuple(self.extractor.bibtex_ids)
         should = 'deerwesterIndexingLatentSemantic1990', \
             'mikolovEfficientEstimationWord2013', \
             'biswasGraphBasedKeyword2018', \
@@ -26,23 +31,20 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual(should, ids)
 
     def test_texkeys(self):
-        extractor = Extractor(self.config, self.texpath)
         with open('test-resources/texrefs.json') as f:
             should = sorted(json.load(f))
-        ids = sorted(extractor.tex_refs)
+        ids = sorted(self.extractor.tex_refs)
         self.assertEqual(should, ids)
 
-    def test_exported_ids(self):
-        extractor = Extractor(self.config, self.texpath)
+    def test_extracted_ids(self):
         with open('test-resources/exported_id.json') as f:
             should = sorted(json.load(f))
-        ids = sorted(extractor.export_ids)
+        ids = sorted(self.extractor.extract_ids)
         self.assertEqual(should, ids)
 
     def test_export(self):
-        extractor = Extractor(self.config, self.texpath)
-        sio = io.StringIO()
-        extractor.export(sio)
+        sio = StringIO()
+        self.extractor.extract(sio)
         with open('test-resources/export.bib') as f:
             should = f.read()
         self.assertEqual(should, sio.getvalue())
