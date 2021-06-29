@@ -48,8 +48,18 @@ class RegexFileParser(object):
 
 @dataclass
 class Converter(object):
+    """A base class to convert fields of a BibTex entry (which is of type ``dict``)
+    to another field.
+
+    """
     name: str = field()
     """The name of the converter, which is populated from the section name."""
+
+    destructive: bool = field(default=False)
+    """If true, remove the original field if converting from one key to another in
+    the Bibtex entry.
+
+    """
 
     def convert(self, entry: Dict[str, str]) -> Dict[str, str]:
         return entry
@@ -60,6 +70,11 @@ class Converter(object):
 
 @dataclass
 class DateToYearConverter(Converter):
+    """Converts the year part of a date field to a year.  This is useful when using
+    Zotero's Better Biblatex extension that produces BibLatex formats, but you
+    need BibTex entries.
+
+    """
     NAME = 'date_year'
 
     def convert(self, entry: Dict[str, str]) -> Dict[str, str]:
@@ -68,4 +83,6 @@ class DateToYearConverter(Converter):
             if logger.isEnabledFor(logging.DEBUG):
                 logger.debug(f"{entry['date']} -> {dt} -> {dt.year}")
             entry['year'] = str(dt.year)
+            if self.destructive:
+                del entry['date']
         return entry
