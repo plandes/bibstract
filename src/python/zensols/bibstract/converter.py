@@ -81,7 +81,7 @@ class UpdateOrAddValue(Converter):
     def _convert(self, entry: Dict[str, str]):
         for src, dst in self.fields:
             if src is None:
-                src = 'ENTRYTYPE'
+                src = self.ENTRY_TYPE
             try:
                 val = dst.format(**entry)
             except KeyError as e:
@@ -129,6 +129,7 @@ class ConditionalConverter(Converter):
                  negate: bool) -> bool:
         matches = True
         for k, v in crit.items():
+            k = self.ENTRY_TYPE if k is None else k
             val = entry.get(k)
             if val is None:
                 if negate:
@@ -147,17 +148,6 @@ class ConditionalConverter(Converter):
         return matches
 
     def _convert(self, entry: Dict[str, str]):
-        # matches = True
-        
-        # for k, v in self.includes.items():
-        #     if entry.get(k) != v:
-        #         matches = False
-        #         break
-        # if matches:
-        #     for k, v in self.excludes.items():
-        #         if entry.get(k) == v:
-        #             matches = False
-        #             break
         if self._matches(entry, self.includes, True) and \
            self._matches(entry, self.excludes, False):
             if logger.isEnabledFor(logging.DEBUG):

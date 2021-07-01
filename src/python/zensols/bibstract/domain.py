@@ -61,6 +61,8 @@ class Converter(object):
     Subclasses should override :meth:`_convert`.
 
     """
+    ENTRY_TYPE = 'ENTRYTYPE'
+
     name: str = field()
     """The name of the converter."""
 
