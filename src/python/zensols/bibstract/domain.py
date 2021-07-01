@@ -3,19 +3,23 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Set, Dict, List
+from typing import Set, Dict, List, Tuple
 from dataclasses import dataclass, field
 import logging
 import sys
 from itertools import chain
-from datetime import datetime
 from io import TextIOBase
 import re
-import dateparser
-from zensols.config import Writable
+from zensols.util import APIError
+from zensols.persist import persisted
+from zensols.config import Writable, ConfigFactory
 from zensols.introspect import ClassImporter, ClassInspector, Class
 
 logger = logging.getLogger(__name__)
+
+
+class BibstractError(APIError):
+    pass
 
 
 @dataclass
@@ -58,13 +62,7 @@ class Converter(object):
 
     """
     name: str = field()
-    """The name of the converter, which is populated from the section name."""
-
-    destructive: bool = field(default=False)
-    """If true, remove the original field if converting from one key to another in
-    the Bibtex entry.
-
-    """
+    """The name of the converter."""
 
     def convert(self, entry: Dict[str, str]) -> Dict[str, str]:
         """Convert and return a new entry.
@@ -89,9 +87,59 @@ class Converter(object):
 
 
 @dataclass
+class DestructiveConverter(Converter):
+    """A converter that can optionally remove or modify entries.
+
+    """
+    destructive: bool = field(default=False)
+    """If true, remove the original field if converting from one key to another in
+    the Bibtex entry.
+
+    """
+
+
+@dataclass
 class ConverterLibrary(Writable):
+    config_factory: ConfigFactory = field()
+    """The configuration factory used to create the converters."""
+
     converter_class_names: List[str] = field()
     """The list of converter class names currently available."""
+
+    converter_names: List[str] = field(default=None)
+    """A list of converter names used to convert to BibTex entries."""
+
+    def __post_init__(self):
+        self.converter_names = list(filter(
+            lambda x: x != 'identity', self.converter_names))
+        self._unregistered = {}
+
+    def _create_converter(self, name: str) -> Converter:
+        conv = self.config_factory(f'{name}_converter')
+        conv.name = name
+        return conv
+
+    @property
+    @persisted('_converters')
+    def converters(self) -> Tuple[Converter]:
+        return tuple(map(self._create_converter, self.converter_names))
+
+    @property
+    @persisted('_by_name')
+    def converters_by_name(self) -> Dict[str, Converter]:
+        convs = self.converters
+        return {c.name: c for c in convs}
+
+    def __getitem__(self, key: str):
+        conv = self.converters_by_name.get(key)
+        if conv is None:
+            conv = self._unregistered.get(key)
+            if conv is None:
+                conv = self._create_converter(key)
+                self._unregistered[key] = conv
+        if conv is None:
+            raise BibstractError(f'No such converter: {key}')
+        return conv
 
     def write(self, depth: int = 0, writer: TextIOBase = sys.stdout,
               markdown_depth: int = 1):
@@ -104,50 +152,3 @@ class ConverterLibrary(Writable):
             writer.write('\n')
             self._write_line(mcls.doc.text, depth, writer)
             writer.write('\n\n')
-
-
-@dataclass
-class DateToYearConverter(Converter):
-    """Converts the year part of a date field to a year.  This is useful when using
-    Zotero's Better Biblatex extension that produces BibLatex formats, but you
-    need BibTex entries.
-
-    """
-    NAME = 'date_year'
-    """The name of the converter."""
-
-    def _convert(self, entry: Dict[str, str]):
-        if 'date' in entry:
-            dt: datetime = dateparser.parse(entry['date'])
-            if logger.isEnabledFor(logging.DEBUG):
-                logger.debug(f"{entry['date']} -> {dt} -> {dt.year}")
-            entry['year'] = str(dt.year)
-            if self.destructive:
-                del entry['date']
-
-
-@dataclass
-class CopyOrMoveConverter(Converter):
-    """Copy or move one or more fields in the entry.  This is useful when your
-    bibliography style expects one key, but the output (i.e.BibLatex) outputs a
-    different named field).
-
-    When :obj:``destructive`` is set to ``True``, this copy operation becomes a
-    move.
-
-    """
-    NAME = 'copy'
-    """The name of the converter."""
-
-    fields: Dict[str, str] = field(default_factory=dict)
-    """The source to target list of fields specifying which keys to keys get copied
-    or moved.
-
-    """
-
-    def _convert(self, entry: Dict[str, str]):
-        for src, dst in self.fields.items():
-            if src in entry:
-                entry[dst] = entry[src]
-                if self.destructive:
-                    del entry[src]

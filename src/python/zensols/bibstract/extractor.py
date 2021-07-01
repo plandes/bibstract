@@ -4,7 +4,7 @@ file.
 """
 __author__ = 'plandes'
 
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Iterable
 from dataclasses import dataclass, field
 import sys
 import logging
@@ -16,8 +16,7 @@ from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
-from zensols.config import ConfigFactory
-from . import RegexFileParser, Converter
+from . import RegexFileParser, Converter, ConverterLibrary
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +29,8 @@ class Extractor(object):
     """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
 
-    config_factory: ConfigFactory = field()
-    """The configuration factory used to create the converters."""
+    converter_library: ConverterLibrary = field()
+    """The converter library used to print what's available."""
 
     master_bib: Path = field()
     """The path to the master BibTex file."""
@@ -41,20 +40,9 @@ class Extractor(object):
     references.
 
     """
-
-    converter_names: List[str] = field(default=None)
-    """A list of converter names used to convert to BibTex entries."""
-
-    def __post_init__(self):
-        self.converter_names = list(filter(
-            lambda x: x != 'identity', self.converter_names))
-
     @property
-    @persisted('_converters')
     def converters(self) -> Tuple[Converter]:
-        fac = self.config_factory
-        return tuple(map(lambda n: fac.new_instance(f'{n}_converter'),
-                         self.converter_names))
+        return self.converter_library.converters
 
     @property
     @persisted('_database')
@@ -123,13 +111,10 @@ class Extractor(object):
         for id in self.extract_ids:
             print(id)
 
-    @property
-    @persisted('_entries')
-    def entries(self) -> Dict[str, Dict[str, str]]:
-        """The BibTex entries parsed from the master bib file."""
-        db = self.database.get_entry_dict()
+    def _convert_dict(self, db: Dict[str, Dict[str, str]],
+                      keys: Iterable[str]) -> Dict[str, str]:
         entries = {}
-        for did in sorted(self.extract_ids):
+        for did in sorted(keys):
             entry = db[did]
             for conv in self.converters:
                 if logger.isEnabledFor(logging.DEBUG):
@@ -137,6 +122,36 @@ class Extractor(object):
                 entry = conv.convert(entry)
             entries[did] = entry
         return entries
+
+    @property
+    @persisted('_entries', cache_global=True)
+    def entries(self) -> Dict[str, Dict[str, str]]:
+        """The BibTex entries parsed from the master bib file."""
+        db = self.database.get_entry_dict()
+        return self._convert_dict(db, db.keys())
+
+    #@persisted('_all_entries', cache_global=True)
+    def _get_all_entries(self) -> Dict[str, Dict[str, str]]:
+        return {}
+
+    def get_entry(self, citation_key: str) -> Dict[str, Dict[str, str]]:
+        entries = self._get_all_entries()
+        entry: Dict[str, str] = entries.get(citation_key)
+        if entry is None:
+            db = self.database.get_entry_dict()
+            entry = db[citation_key]
+            converted = self._convert_dict(
+                {citation_key: entry}, [citation_key])
+            entry = converted[citation_key]
+            entries[citation_key] = entry
+        return entry
+
+    @property
+    @persisted('_extracted_entries')
+    def extracted_entries(self) -> Dict[str, Dict[str, str]]:
+        """The BibTex entries parsed from the master bib file."""
+        db = self.database.get_entry_dict()
+        return self._convert_dict(db, self.extract_ids)
 
     def extract(self, writer: TextIOWrapper = sys.stdout):
         """Extract the master source BibTex matching citation references from the LaTex
@@ -146,8 +161,16 @@ class Extractor(object):
 
         """
         bwriter = BibTexWriter()
-        for bid, entry in self.entries.items():
-            logger.info(f'writing entry {bid}')
-            writer.write(bwriter._entry_to_bibtex(entry))
-            logger.debug(f'extracting: {bid}: <{entry}>')
+        for bid, entry in self.extracted_entries.items():
+            if logger.isEnabledFor(logging.DEBUG):
+                logger.debug(f'extracting: {bid}: <{entry}>')
+            if logger.isEnabledFor(logging.INFO):
+                logger.info(f'writing entry {bid}')
+            self.write_entry(entry, bwriter, writer)
         writer.flush()
+
+    def write_entry(self, entry: Dict[str, str],
+                    bwriter: BibTexWriter = None,
+                    writer: TextIOWrapper = sys.stdout):
+        bwriter = BibTexWriter() if bwriter is None else bwriter
+        writer.write(bwriter._entry_to_bibtex(entry))

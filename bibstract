@@ -9,7 +9,7 @@ from pathlib import Path
 def main(args: List[str], **factory_kwargs: Dict[str, Any]):
     entry_path = Path(args[0])
     src_path = entry_path.parent / 'src' / 'python'
-    conf_path = entry_path.parent / 'test-resources' / 'bibstract.conf'
+    conf_path = entry_path.parent / 'test-resources' / 'bibstract.confx'
     if not conf_path.exists():
         conf_path = Path(os.environ['BIBSTRACTRC'])
     args = args + ['-c', str(conf_path)]
@@ -22,7 +22,6 @@ def proto():
     print('-->proto')
     try:
         args = '_ -c test-resources/bibstract.conf export test-resources/someproj'.split()
-        args = '_ converters'.split()
         main(args, reload_pattern='^zensols.bibstract.*')
     except SystemExit as e:
         print(f'exit: {e}')

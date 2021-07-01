@@ -4,6 +4,7 @@
 """
 __author__ = 'Paul Landes'
 
+from typing import Dict
 from dataclasses import dataclass, field
 import logging
 from pathlib import Path
@@ -21,7 +22,8 @@ class Exporter(object):
     CLI_META = {'mnemonic_excludes': {'get_extractor'},
                 'mnemonic_overrides': {'print_bibtex_ids': 'showbib',
                                        'print_texfile_refs': 'showtex',
-                                       'print_extracted_ids': 'showextract'},
+                                       'print_extracted_ids': 'showextract',
+                                       'print_entry': 'entry'},
                 'option_includes': {}}
 
     config_factory: ConfigFactory = field()
@@ -67,6 +69,16 @@ class Exporter(object):
         """
         extractor = self.get_extractor(texpath)
         extractor.print_extracted_ids()
+
+    def print_entry(self, citation_key: str):
+        """Print a single BibTex entry as it would be given in the output.
+
+        :param citation_key: the citation key of entry to print out
+
+        """
+        extractor = self.get_extractor()
+        entry: Dict[str, Dict[str, str]] = extractor.get_entry(citation_key)
+        extractor.write_entry(entry)
 
     def export(self, texpath: Path):
         """Export the derived BibTex file.
