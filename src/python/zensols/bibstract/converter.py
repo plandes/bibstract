@@ -93,6 +93,34 @@ class UpdateOrAddValue(Converter):
 
 
 @dataclass
+class ReplaceValue(Converter):
+    """Replace values of entries by regular expression.
+
+    """
+    NAME = 'replace'
+
+    fields: List[Tuple[str, str, str]] = field(default_factory=list)
+    """A list of tuples, each tuple having the key of the entry to modify, a string
+    regular expression of what to change, and the replacement string.
+
+    """
+    def _convert(self, entry: Dict[str, str]):
+        for src, regex, repl in self.fields:
+            if src is None:
+                src = self.ENTRY_TYPE
+            try:
+                old = entry[src]
+                new = re.sub(regex, repl, old)
+                if old != new:
+                    if logger.isEnabledFor(logging.DEBUG):
+                        logger.debug(f'{src} -> {new}')
+                    entry[src] = new
+            except KeyError as e:
+                msg = f'Can not execute update/add converter for {entry["ID"]}'
+                raise BibstractError(msg) from e
+
+
+@dataclass
 class ConditionalConverter(Converter):
     """A converter that invokes a list of other converters if a certain entry
     key/value pair matches.

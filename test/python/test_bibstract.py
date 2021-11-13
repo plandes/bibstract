@@ -1,3 +1,4 @@
+from typing import Dict
 import sys
 import json
 from pathlib import Path
@@ -20,7 +21,12 @@ class TestBase(unittest.TestCase):
         harn: CliHarness = ApplicationFactory.create_harness()
         self.app: Exporter = harn.get_instance(f'-c {self.CONF} converters')
         self.extractor: Extractor = self.app.get_extractor(
-            Path('test-resources'))
+            Path('test-resources/someproj'))
+
+    def _get_entry(self, key):
+        entry = self.extractor.get_entry(key)
+        self.assertEqual(dict, type(entry))
+        return entry
 
 
 class TestExtractor(TestBase):
@@ -76,11 +82,6 @@ class TestConditionalConverter(TestBase):
     NON_ARXIV = 'deerwesterIndexingLatentSemantic1990'
     ARXIV = 'mikolovAdvancesPreTrainingDistributed2017'
 
-    def _get_entry(self, key):
-        entry = self.extractor.get_entry(key)
-        self.assertEqual(dict, type(entry))
-        return entry
-
     def _test_fallthrough(self):
         entry = self._get_entry(self.NON_ARXIV)
         self.assertEqual('article', entry['ENTRYTYPE'])
@@ -128,3 +129,21 @@ class TestConditionalUpdateWithUpdate(TestConditionalConverter):
 
     def test_converter(self):
         self._test_update()
+
+
+class TestNoReplace(TestBase):
+    def test_replace(self):
+        entry: Dict[str, str] = self._get_entry('biswasGraphBasedKeyword2018')
+        should = 'Centrality measure,Graph based model,Keyword extraction,Sentiment analysis,Text mining'
+        self.assertEqual(should, entry['keywords'])
+
+
+class TestReplace(TestBase):
+    def setUp(self):
+        self.CONF = 'test-resources/replace.conf'
+        super().setUp()
+
+    def test_replace(self):
+        entry: Dict[str, str] = self._get_entry('biswasGraphBasedKeyword2018')
+        should = 'C<tr>ality measure,Graph based model,Keyword extraction,S<ti>m<t >analysis,Text mining'
+        self.assertEqual(should, entry['keywords'])
