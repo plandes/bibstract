@@ -1,11 +1,10 @@
 import sys
 import json
-from pprint import pprint
 from pathlib import Path
 from io import StringIO
 import unittest
-from zensols.bibstract import Exporter, Extractor
-from instfac import InstanceFactory
+from zensols.cli import CliHarness
+from zensols.bibstract import Exporter, Extractor, ApplicationFactory
 
 
 if 0:
@@ -18,12 +17,10 @@ class TestBase(unittest.TestCase):
         self.maxDiff = sys.maxsize
         if not hasattr(self, 'CONF'):
             self.CONF = 'test-resources/default.conf'
-        self.app: Exporter = InstanceFactory(
-            config_file=self.CONF,
-            args='export _'.split(),
-            reload_factory=False).instance()
+        harn: CliHarness = ApplicationFactory.create_harness()
+        self.app: Exporter = harn.get_instance(f'-c {self.CONF} converters')
         self.extractor: Extractor = self.app.get_extractor(
-            Path('test-resources/someproj'))
+            Path('test-resources'))
 
 
 class TestExtractor(TestBase):

@@ -16,7 +16,7 @@ from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
-from . import RegexFileParser, Converter, ConverterLibrary
+from . import BibstractError, RegexFileParser, Converter, ConverterLibrary
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +83,8 @@ class Extractor(object):
             paths = (path,)
         elif path.is_dir():
             paths = tuple(filter(self._is_tex_file, path.rglob('*')))
+        else:
+            raise BibstractError(f'No such file or directory: {path}')
         logger.debug(f'parsing references from Tex files: {paths}')
         for path in paths:
             with open(path) as f:
@@ -130,7 +132,6 @@ class Extractor(object):
         db = self.database.get_entry_dict()
         return self._convert_dict(db, db.keys())
 
-    #@persisted('_all_entries', cache_global=True)
     def _get_all_entries(self) -> Dict[str, Dict[str, str]]:
         return {}
 

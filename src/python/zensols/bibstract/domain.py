@@ -10,15 +10,15 @@ import sys
 from itertools import chain
 from io import TextIOBase
 import re
-from zensols.util import APIError
 from zensols.persist import persisted
 from zensols.config import Writable, ConfigFactory
 from zensols.introspect import ClassImporter, ClassInspector, Class
+from zensols.cli import ApplicationError
 
 logger = logging.getLogger(__name__)
 
 
-class BibstractError(APIError):
+class BibstractError(ApplicationError):
     pass
 
 
