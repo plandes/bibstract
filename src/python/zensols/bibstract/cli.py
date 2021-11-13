@@ -4,12 +4,10 @@
 __author__ = 'Paul Landes'
 
 from typing import List, Any, Dict
-from dataclasses import dataclass
 import sys
 from zensols.cli import ApplicationFactory, ActionResult, CliHarness
 
 
-@dataclass
 class ApplicationFactory(ApplicationFactory):
     def __init__(self, *args, **kwargs):
         kwargs['package_resource'] = 'zensols.bibstract'
@@ -17,5 +15,5 @@ class ApplicationFactory(ApplicationFactory):
 
 
 def main(args: List[str] = sys.argv, **kwargs: Dict[str, Any]) -> ActionResult:
-    cli = ApplicationFactory.instance(**kwargs)
-    cli.invoke(args)
+    harness: CliHarness = ApplicationFactory.create_harness(relocate=False)
+    harness.invoke(args, **kwargs)
