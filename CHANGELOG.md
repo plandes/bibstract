@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+### Changed
+- Upgrade the `zensols.util` CLI harness and import INI syntax.
+
+### Added
+- A converter that conditionally invokes other converters.
+- A converter to use regular expressions to replace text in entry values.
+
+
 ## [0.0.4] - 2021-06-29
 ### Changed
 - Upgraded to application based CLI.
