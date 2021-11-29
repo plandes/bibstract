@@ -27,7 +27,7 @@ class RegexFileParser(object):
     """Finds all instances of the citation references in a file.
 
     """
-    REF_REGEX = re.compile(r'\{([a-zA-Z0-9,]+?)\}')
+    REF_REGEX = re.compile(r'\{([a-zA-Z0-9,-]+?)\}')
     """The default regular expression used to find citation references in sty and
     tex files (i.e. ``\\cite`` commands).
 
