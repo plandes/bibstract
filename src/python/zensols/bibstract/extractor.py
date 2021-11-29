@@ -4,7 +4,7 @@ file.
 """
 __author__ = 'plandes'
 
-from typing import List, Dict, Tuple, Iterable
+from typing import Dict, Tuple, Iterable
 from dataclasses import dataclass, field
 import sys
 import logging
