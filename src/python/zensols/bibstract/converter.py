@@ -3,7 +3,7 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
 import logging
@@ -64,6 +64,33 @@ class CopyOrMoveKeyConverter(DestructiveConverter):
                 entry[dst] = entry[src]
                 if self.destructive:
                     del entry[src]
+
+
+@dataclass
+class RemoveConverter(DestructiveConverter):
+    """Remove entries that match a regular expression.
+
+    """
+    NAME = 'copy'
+    """The name of the converter."""
+
+    keys: Tuple[str] = field(default=())
+    """A list of regular expressions, that if match the entry key, will remove the
+    entry.
+
+    """
+    def __post_init__(self):
+        self.keys = tuple(map(lambda r: re.compile(r), self.keys))
+
+    def _convert(self, entry: Dict[str, str]):
+        entry_keys_to_del = set()
+        for kreg in self.keys:
+            for k, v in entry.items():
+                km: Optional[re.Match] = kreg.match(k)
+                if km is not None:
+                    entry_keys_to_del.add(k)
+        for k in entry_keys_to_del:
+            del entry[k]
 
 
 @dataclass
