@@ -71,7 +71,7 @@ class RemoveConverter(DestructiveConverter):
     """Remove entries that match a regular expression.
 
     """
-    NAME = 'copy'
+    NAME = 'remove'
     """The name of the converter."""
 
     keys: Tuple[str] = field(default=())
