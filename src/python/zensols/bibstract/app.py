@@ -7,6 +7,7 @@ __author__ = 'Paul Landes'
 from typing import Dict
 from dataclasses import dataclass, field
 import logging
+import os
 from pathlib import Path
 from zensols.config import ConfigFactory
 from . import Extractor, ConverterLibrary
@@ -90,3 +91,20 @@ class Exporter(object):
         self._set_log_level_info()
         extractor = self.get_extractor(texpath)
         extractor.extract()
+
+    def export_all(self, texpaths: str):
+        """Export the derived BibTex file from a list of paths.
+
+        :param texpaths: a path separated (':' on Linux) list of files or
+                         directories to export
+
+        """
+        self._set_log_level_info()
+        for path in map(Path, texpaths.split(os.pathsep)):
+            if path.exists():
+                if logger.isEnabledFor(logging.INFO):
+                    logger.info(f'exporting {path}')
+                extractor = self.get_extractor(path)
+                extractor.extract()
+            else:
+                logger.warning(f'file or directory missing: {path}--skipping')
