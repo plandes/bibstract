@@ -50,11 +50,16 @@ class Extractor(object):
         """Return the BibTex Python object representation of master file.
 
         """
-        logger.info(f'parsing master bibtex file: {self.master_bib}')
+        if logger.isEnabledFor(logging.INFO):
+            logger.info(f'parsing master bibtex file: {self.master_bib}')
         parser = BibTexParser()
         parser.ignore_nonstandard_types = False
         with open(self.master_bib) as f:
-            return bibtexparser.load(f, parser)
+            db = bibtexparser.load(f, parser)
+        # if logger.isEnabledFor(logging.DEBUG):
+        #     ids = list(map(lambda e: e['ID'], db.entries))
+        #     logger.debug(f'parsed ids: {ids}')
+        return db
 
     @property
     def bibtex_ids(self) -> iter:
@@ -72,6 +77,7 @@ class Extractor(object):
             self.TEX_FILE_REGEX.match(path.name) is not None
 
     @property
+    @persisted('_tex_refs')
     def tex_refs(self) -> set:
         """Return the set of parsed citation references.
 
@@ -89,6 +95,8 @@ class Extractor(object):
         for path in paths:
             with open(path) as f:
                 parser.find(f)
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(f'parsed refs: {", ".join(parser.collector)}')
         return parser.collector
 
     @property
@@ -98,6 +106,9 @@ class Extractor(object):
         """
         bib = set(self.bibtex_ids)
         trefs = self.tex_refs
+        if logger.isEnabledFor(logging.DEBUG):
+            #logger.debug(f'bib IDS: {bib}')
+            logger.debug(f'extracted: {trefs}')
         return bib & trefs
 
     def print_bibtex_ids(self):
@@ -154,7 +165,8 @@ class Extractor(object):
         db = self.database.get_entry_dict()
         return self._convert_dict(db, self.extract_ids)
 
-    def extract(self, writer: TextIOWrapper = sys.stdout):
+    def extract(self, writer: TextIOWrapper = sys.stdout,
+                extracted_entries: Dict[str, Dict[str, str]] = None):
         """Extract the master source BibTex matching citation references from the LaTex
         file(s) and write them to ``writer``.
 
@@ -162,9 +174,12 @@ class Extractor(object):
 
         """
         bwriter = BibTexWriter()
-        for bid, entry in self.extracted_entries.items():
+        if extracted_entries is None:
+            extracted_entries = self.extracted_entries
+        for bid, entry in extracted_entries.items():
             if logger.isEnabledFor(logging.DEBUG):
-                logger.debug(f'extracting: {bid}: <{entry}>')
+                estr = str(entry)[:80]
+                logger.debug(f'extracting: {bid}: <{estr}>')
             if logger.isEnabledFor(logging.INFO):
                 logger.info(f'writing entry {bid}')
             self.write_entry(entry, bwriter, writer)

@@ -51,6 +51,8 @@ class RegexFileParser(object):
             refs = self.pattern.findall(line)
             refs = chain.from_iterable(
                 map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
+            # if logger.isEnabledFor(logging.DEBUG):
+            #     logger.debug(f'found refs: {", ".join(refs)}')
             self.collector.update(refs)
 
 
