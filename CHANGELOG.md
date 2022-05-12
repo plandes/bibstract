@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [0.1.0] - 2022-05-12
+### Added
+- Support to find packages and packages as dependencies from LaTeX `usepackage`
+  commands.
+- Unit tests for new functionality, and more unit tests for the existing.
+
+### Changed
+- Combine the `exportall` in to the `export` action by supporting OS path
+  separated string.
+
+### Removed
+- The `exportall` action.
+
+
+
 ## [0.0.5] - 2022-02-03
 ### Changed
 - Upgrade the `zensols.util` CLI harness and import INI syntax.
@@ -47,7 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 <!-- links -->
-[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v0.0.5...HEAD
+[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Paul Landes/bibstract/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/Paul Landes/bibstract/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/Paul Landes/bibstract/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/Paul Landes/bibstract/compare/v0.0.2...v0.0.3
