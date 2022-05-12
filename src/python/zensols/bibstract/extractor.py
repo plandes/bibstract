@@ -16,13 +16,16 @@ from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
-from . import BibstractError, RegexFileParser, Converter, ConverterLibrary
+from . import (
+    BibstractError, TexFileIterator, RegexFileParser,
+    Converter, ConverterLibrary
+)
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
-class Extractor(object):
+class Extractor(TexFileIterator):
     """Extracts references, parses the BibTex master source file, and extracts
     matching references from the LaTex file.
 
@@ -35,11 +38,6 @@ class Extractor(object):
     master_bib: Path = field()
     """The path to the master BibTex file."""
 
-    texpath: Path = field(default=None)
-    """Either a file or directory to recursively scan for files with LaTex citation
-    references.
-
-    """
     @property
     def converters(self) -> Tuple[Converter]:
         return self.converter_library.converters
@@ -65,13 +63,6 @@ class Extractor(object):
 
         """
         return map(lambda e: e['ID'], self.database.entries)
-
-    def _is_tex_file(self, path: Path) -> bool:
-        """Return whether or not path is a file that might contain citation references.
-
-        """
-        return path.is_file() and \
-            self.TEX_FILE_REGEX.match(path.name) is not None
 
     @property
     @persisted('_tex_refs')

@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 import logging
 import sys
 from itertools import chain
+from pathlib import Path
 from io import TextIOBase
 import re
 from zensols.persist import persisted
@@ -21,6 +22,21 @@ logger = logging.getLogger(__name__)
 class BibstractError(ApplicationError):
     """Application level error."""
     pass
+
+
+@dataclass
+class TexFileIterator(object):
+    texpath: Path = field()
+    """Either a file or directory to recursively scan for files with LaTex citation
+    references.
+
+    """
+    def _is_tex_file(self, path: Path) -> bool:
+        """Return whether or not path is a file that might contain citation references.
+
+        """
+        return path.is_file() and \
+            self.TEX_FILE_REGEX.match(path.name) is not None
 
 
 @dataclass
