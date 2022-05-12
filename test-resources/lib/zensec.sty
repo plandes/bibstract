@@ -1,0 +1,49 @@
+%%
+%% Paul Landes  12/24/2013
+%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{zensec}[2018/03/06 Sections]
+
+\usepackage{ifthen}
+
+% add section name text refs if not using slides with incompatible beamer
+\ifx\zenslidesmode\undefined
+  \usepackage{nameref}
+\fi
+
+
+%% commands
+
+% add an 'invisible' section and table of contents entry for abbrevs, index, etc
+% <section|chapter|etc> <toc name> <label> <add number in toc: true|false>
+\newcommand{\zzsecaddtoc}[4]{%
+  \refstepcounter{#1}%
+  % use the next line instead to create a numbered entry
+  \ifthenelse{\equal{#4}{true}}%
+  {\addcontentsline{toc}{#1}{\protect\numberline{\thesection}#2}}%
+  {\addcontentsline{toc}{#1}{#2}}%
+  \sectionmark{#2}%
+  \label{#3}}
+
+\newcommand{\zzpart}[2]{\part*{#2}\label{sec:#1}%
+\addcontentsline{toc}{part}{#2}}
+
+\newcommand{\zzsec}[2]{\section{#2}\label{sec:#1}}
+\newcommand{\zzsubsec}[2]{\subsection{#2}\label{sec:#1}}
+\newcommand{\zzsubsubsec}[2]{\subsubsection{#2}\label{sec:#1}}
+\newcommand{\zzpara}[2]{\paragraph{#2}\label{sec:#1}}
+
+
+%% -- References
+\newcommand{\zzsecref}[1]{Section~\ref{sec:#1}}
+\newcommand{\zzseesec}[1]{(see \zzsecref{#1})}
+\newcommand{\zzsecnameref}[1]{\nameref{sec:#1}}
+\newcommand{\zzsechref}[2]{\hyperref[sec:#1]{#2}}
+% "see paragraph N" just uses the section number and is awkward
+\newcommand{\zzpararef}[1]{\zzsecref{#1}}
+\newcommand{\zzseepara}[1]{\zzseesec{#1}}
+
+
+%% -- Mark places to return to work (must use zenindex.sty)
+\newcommand{\zztodo}[1]{FINISH MORE HERE: #1\idx{NOT FINISHED!#1}}

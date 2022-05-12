@@ -1,26 +1,14 @@
 from typing import Dict
-import sys
 import json
 from pathlib import Path
 from io import StringIO
-import unittest
-from zensols.cli import CliHarness
+from util import TestBase
 from zensols.bibstract import Exporter, Extractor, ApplicationFactory
 
 
-if 0:
-    import logging
-    logging.basicConfig(level=logging.DEBUG)
-
-
-class TestBase(unittest.TestCase):
+class TestExtractorBase(TestBase):
     def setUp(self):
-        self.maxDiff = sys.maxsize
-        if not hasattr(self, 'CONF'):
-            self.CONF = 'test-resources/default.conf'
-        harn: CliHarness = ApplicationFactory.create_harness()
-        self.app: Exporter = harn.get_instance(
-            f'-c {self.CONF} converters --level warn')
+        super().setUp()
         self.extractor: Extractor = self.app._get_extractor(
             Path('test-resources/someproj'))
 
@@ -30,7 +18,7 @@ class TestBase(unittest.TestCase):
         return entry
 
 
-class TestExtractor(TestBase):
+class TestExtractor(TestExtractorBase):
     def test_bibkeys(self):
         ids = tuple(self.extractor.bibtex_ids)
         should = 'deerwesterIndexingLatentSemantic1990', \
@@ -53,7 +41,7 @@ class TestExtractor(TestBase):
         self.assertEqual(should, ids)
 
 
-class TestExport(TestBase):
+class TestExport(TestExtractorBase):
     def test_export(self):
         sio = StringIO()
         self.extractor.extract(sio)
@@ -62,7 +50,7 @@ class TestExport(TestBase):
         self.assertEqual(should, sio.getvalue())
 
 
-class TestDateYearConverters(TestBase):
+class TestDateYearConverters(TestExtractorBase):
     def setUp(self):
         self.CONF = 'test-resources/date-year-conv.conf'
         super().setUp()
@@ -79,7 +67,7 @@ class TestDateYearConverters(TestBase):
         self.assertEqual(should, id_to_dates)
 
 
-class TestConditionalConverter(TestBase):
+class TestConditionalConverter(TestExtractorBase):
     NON_ARXIV = 'deerwesterIndexingLatentSemantic1990'
     ARXIV = 'mikolovAdvancesPreTrainingDistributed2017'
 
@@ -132,14 +120,14 @@ class TestConditionalUpdateWithUpdate(TestConditionalConverter):
         self._test_update()
 
 
-class TestNoReplace(TestBase):
+class TestNoReplace(TestExtractorBase):
     def test_replace(self):
         entry: Dict[str, str] = self._get_entry('biswasGraphBasedKeyword2018')
         should = 'Centrality measure,Graph based model,Keyword extraction,Sentiment analysis,Text mining'
         self.assertEqual(should, entry['keywords'])
 
 
-class TestReplace(TestBase):
+class TestReplace(TestExtractorBase):
     def setUp(self):
         self.CONF = 'test-resources/replace.conf'
         super().setUp()

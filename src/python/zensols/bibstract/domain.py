@@ -35,24 +35,33 @@ class TexPathIterator(object):
 
     """
     def __post_init__(self):
-        if isinstance(self.texpaths, Path):
-            self.texpaths = (self.texpaths,)
-        if isinstance(self.texpaths, str):
-            self.texpaths = tuple(map(Path, self.texpaths.split(os.pathsep)))
+        self.texpaths = self._to_path_seq(self.texpaths)
+
+    def _to_path_seq(self, path_thing: Union[str, Path, Sequence[Path]]) -> \
+            Sequence[Path]:
+        if path_thing is None:
+            path_thing = ()
+        if isinstance(path_thing, Path):
+            path_thing = (path_thing,)
+        elif isinstance(path_thing, str):
+            path_thing = tuple(map(Path, path_thing.split(os.pathsep)))
+        return path_thing
 
     def _iterate_path(self, par: Path):
         childs: Iterable[Path]
         if par.is_file():
             childs = (par,)
         elif par.is_dir():
-            childs = it.chain.from_iterable(map(self._iterate_path, par.iterdir()))
+            childs = it.chain.from_iterable(
+                map(self._iterate_path, par.iterdir()))
         else:
             childs = ()
             logger.warning(f'unknown file type: {par}--skipping')
         return childs
 
-    def _get_tex_paths(self) -> Iterable[Path]:
-        files = it.chain.from_iterable(map(self._iterate_path, self.texpaths))
+    def _get_tex_paths(self, paths: Sequence[Path] = None) -> Iterable[Path]:
+        paths = self.texpaths if paths is None else paths
+        files = it.chain.from_iterable(map(self._iterate_path, paths))
         return filter(self._is_tex_file, files)
 
     def _is_tex_file(self, path: Path) -> bool:

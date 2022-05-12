@@ -1,0 +1,190 @@
+%%
+%% Paul Landes  2018-05-06
+%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{zenmath}[5/06/2018 Math notation]
+
+
+%% -- Math
+%% https://en.wikibooks.org/wiki/LaTeX/Algorithms
+\providecommand{\zzalgoconfig}{linesnumbered,lined,boxed,commentsnumbered}
+
+\providecommand{\framevar}{oframed}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{framed}
+\usepackage[\zzalgoconfig]{algorithm2e}
+\usepackage{latexsym}
+
+
+%% -- Equation listing
+% equation listing not supported in beamer
+\newcommand{\zzlistequations}{%
+\usepackage{tocloft}
+\newlistof{zzequations}{equ}{{\cftloftitlefont\listequationsname}}
+}
+\newcommand{\listequationsname}{List of Equations}
+\newcommand{\zzequations}[1]{%
+\addcontentsline{equ}{zzequations}{\protect\numberline{\theequation}#1}\par}
+
+
+
+%% -- Commands
+\newenvironment{zzexample}[2]%
+{%
+\zzequations{#1}
+\begin{\framevar}
+\noindent{\bf #1}\hfill{\footnotesize #2}\\\\
+\noindent
+}%
+{%
+\end{\framevar}}
+
+% \zzequation{label}{Equation Name In TOC}{Header Description}{Footer Content}
+\newenvironment{zzequation}[4]%
+{%
+\newcommand{\zzequationfoot}{\zzequations{#2}#4}%
+\begin{\framevar}
+\noindent%
+#3
+\begin{equation}
+\label{eq:#1}
+\begin{gathered}
+}%
+{%
+\end{gathered}%
+\end{equation}%
+\zzequationfoot%
+\end{\framevar}}
+
+% \zzsimpleequation{label}
+\newenvironment{zzsimpleequation}[1]%
+{\begin{equation}
+\label{eq:#1}
+\begin{gathered}
+}%
+{%
+\end{gathered}
+\end{equation}}
+
+% \zzsimpleequationalign{label}
+\newenvironment{zzsimpleequationalign}[1]%
+{\begin{align}
+\label{eq:#1}
+}%
+{%
+\end{align}}
+
+
+% envs
+
+%% ex: \begin{zzacdefinition}{01234567890}
+% \item[key item] define...
+\newenvironment{zzacdefinition}[1]
+{\begin{zzdefinitiontype}{#1}{\bf}{0cm}{0.3in}}
+{\end{zzdefinitiontype}}
+
+
+%% theorem, proofs
+%\newtheorem{theorem}{Theorem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\newenvironment{zztheorem}[1]%
+{\begin{theorem}
+\label{the:#1}}
+{\end{theorem}}
+
+%\newtheorem{lemma}{Lemma}
+\newenvironment{zzlemma}[1]%
+{\begin{lemma}
+\label{lem:#1}}
+{\end{lemma}}
+
+\newenvironment{zzproof}[1]%
+{\begin{proof}
+\label{prf:#1}}
+{\end{proof}}
+
+\newcommand{\concept}[2]{%
+\noindent%
+#1 \hfill Page #2
+\addcontentsline{equ}{zzequations}{\protect\numberline{\theequation}#1}\\}
+
+\newcommand{\conceptdesc}[3]{%
+\noindent%
+#1 (#3) \hfill Page #2
+\addcontentsline{equ}{zzequations}{\protect\numberline{\theequation}#1}\\}
+
+
+%\newtheorem{zzdef}{Definition}
+
+\providecommand{\zzallabel}[1]{NOT DEFINED}
+
+\newenvironment{zzalgo}[3]%
+{%
+\begin{algorithm}[#1]
+\SetKwProg{Fn}{Function}{}{end}%
+\SetKwInput{Input}{Input}%
+\SetKwInput{Output}{Output}%
+\SetKw{False}{false}%
+\SetKw{True}{true}%
+\caption{#3}%
+\label{algo:#2}%
+\renewcommand{\zzallabel}[1]{\label{algoline:#2:##1}}%
+}%
+{%
+\end{algorithm}
+}%
+
+
+
+%% -- References
+\newcommand{\zztheoremref}[1]{Theorem~\ref{the:#1}}
+\newcommand{\zzTheoremref}[1]{\zztheoremref{#1}}
+\newcommand{\zzlemmaref}[1]{Lemma~\ref{lem:#1}}
+\newcommand{\zzLemmaref}[1]{\zzlemmaref{#1}}
+\newcommand{\zzProofref}[1]{Proof~\ref{the:#1}}
+\newcommand{\zzproofref}[1]{proof~\ref{the:#1}}
+\newcommand{\zzeqref}[1]{equation~\ref{eq:#1}}
+\newcommand{\zzEqref}[1]{Equation~\ref{eq:#1}}
+\newcommand{\zzalgoref}[1]{Algorithm~\ref{algo:#1}}
+\newcommand{\zzAlgoref}[1]{\zzalgoref{#1}}
+\newcommand{\zzseealgo}[1]{(see \zzalgoref{#1})}
+
+
+%% -- Commands
+\newcommand{\zztrans}{\ensuremath{^{\scriptscriptstyle\mathsf{T}}}}
+
+
+%% -- Stats/machine learning
+\newcommand{\zzdf}{\triangleq}
+\newcommand{\zza}{\wedge}
+\newcommand{\zzo}{\vee}
+\newcommand{\zztd}{\mathcal D}
+\newcommand{\zzthetaest}{\hat{\theta}}
+\newcommand{\zzargmax}{\operatornamewithlimits{argmax}}
+\newcommand{\zzargmin}{\operatornamewithlimits{argmin}}
+\newcommand{\zzlikelihood}{\mathcal L}
+\newcommand{\zzlikelihoodfn}{P(\td \g \theta)}
+\newcommand{\zzlikelihoodest}{\hat{\theta}_{\text{MLE}}}
+\newcommand{\zzmapfn}{\hat{\theta}_{\text{map}}}
+
+
+% -- Complexity
+\newcommand{\optsym}{\mathcal{O}}
+\newcommand{\bigoh}[1]{\ensuremath{\optsym(#1)}}
+\newcommand{\bigtheta}[1]{\ensuremath{\Theta(#1)}}
+\newcommand{\bigomega}[1]{\ensuremath{\Omega(#1)}}
+\newcommand{\optsol}[1]{\optsym(#1)}
+\newcommand{\reduces}{\ensuremath{\leq_p}}
+\newcommand{\NPsp}{\ensuremath{\mathcal{NP}}}
+\newcommand{\Psp}{\ensuremath{\mathcal{P}}}
+\newcommand{\npc}{\textit{NP-complete}}
+
+% -- Algorithms
+\newenvironment{algocase}%
+{\begin{enumerate}[label=(\roman*)]}%
+{\end{enumerate}}

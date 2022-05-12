@@ -1,0 +1,114 @@
+%%
+%% Paul Landes  2018-05-06
+%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{zenslides}[4/30/2018 Slides]
+
+%% beamer
+\usepackage{xspace}
+
+%% theme
+\newcommand{\zsmetropolistheme}{%
+  \usepackage{pgfpages}
+  \usetheme{metropolis}
+  \usecolortheme{seahorse}}
+
+% academic
+\providecommand{\zsaddlogosize}{1cm}
+\newcommand{\zsaddlogo}{%
+\logo{\includegraphics[height=\zsaddlogosize]{\theorganizationlogo}}}
+
+\newcommand{\zsaddsepcolors}{%
+\setbeamercolor{title separator}{fg=blue}}
+
+%% theme
+\setbeamercolor{postit}{fg=black,bg=lightgray}
+
+%% beamer env
+\makeatletter
+% make footer slide number, title, etc
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.334\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+%    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+    \usebeamerfont{author in head/foot}\theauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.334\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+%    \usebeamerfont{title in head/foot}\insertshorttitle
+    \usebeamerfont{title in head/foot}\doctitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+%% config
+% no navigation
+\setbeamertemplate{navigation symbols}{}
+
+%% references frame command
+\newcommand{\zsrefframe}{%
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\setbeamertemplate{frametitle continuation}[from second]
+\begin{frame}[t,noframenumbering,allowframebreaks]
+  %% fix
+  % gets rid of the aweful spaced "References" at the bottom
+  \renewcommand{\section}[2]{}
+  \frametitle{References}
+  \renewcommand*{\bibfont}{\scriptsize}
+  \printbibliography%
+\end{frame}}
+
+%% quotes in boxes
+%\newcommand{\zsquotestyle}{dp=0.3cm,rounded=true,shadow=true}
+\providecommand{\zsquotecolor}{postit}
+\newenvironment{zsquotebox}[1][dp=0.3cm,rounded=true,shadow=true]{%
+\begin{beamercolorbox}[#1]{\zsquotecolor}%
+\footnotesize%
+\it%
+\noindent
+}{\end{beamercolorbox}}
+
+% \begin{zsquoteboxauthor}[rounded=false]{Richard Stallman}
+\newenvironment{zsquoteboxauthor}[2][dp=0.3cm,rounded=true,shadow=true]{%
+\newcommand{\zsquoteauthorname}{#2}%
+\begin{zsquotebox}[#1]\ignorespaces}
+{\\ \noindent\hspace*{\fill}---\zsquoteauthorname%
+\end{zsquotebox}}
+
+% \begin{zsquoteauthor}{Richard Stallman}
+\newenvironment{zsquoteauthor}[1]{%
+\renewcommand{\zsquotecolor}{white}%
+\begin{zsquoteboxauthor}[shadow=false]{#1}}
+{\end{zsquoteboxauthor}}
+
+
+%% commands
+\renewcommand{\zzsec}[2][<none>]{\section{#2}\label{sec:#1}}
+
+\newcommand{\zsquestionsframe}{%
+\begin{frame}[plain,c]{Thank You!}
+  \begin{center}
+    \Huge
+    Questions?
+  \end{center}
+\end{frame}}
+
+\newcommand{\zzcitelong}[1]{\citeauthor{#1}, \citetitle{#1} \citeyear{#1}}
+\newcommand{\zzfootcite}[2][]{\footnote{\zzcitelong{#2}~\cite[#1]{#2}}}
+\newcommand{\zzfootciteauthor}[1]{\zzciteauthorcite{#1}\zzfootcite{#1}}
+\newcommand{\zzfootciteshort}[1]{\zzciteshortcite{#1}\zzfootcite{#1}}
+
+%% presentation
+\ifdefined\ispresentation%
+  % used by Presentation.app with \zsnote
+  \usepackage[draft]{pdfcomment}
+  \newcommand{\zsnote}[1]{\marginnote{\pdfcomment[icon=note]{#1}}}
+\else
+  \newcommand{\zsnote}[1]{\note[item]{#1}}
+\fi

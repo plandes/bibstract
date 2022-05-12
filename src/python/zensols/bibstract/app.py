@@ -4,12 +4,12 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Dict, Set, Callable
+from typing import Dict, Set
 from dataclasses import dataclass, field
 import logging
 from pathlib import Path
 from zensols.config import ConfigFactory
-from . import Extractor, ConverterLibrary
+from . import Extractor, ConverterLibrary, PackageFinder
 
 logger = logging.getLogger(__name__)
 
@@ -23,11 +23,12 @@ class Exporter(object):
                                        'print_texfile_refs': 'showtex',
                                        'print_extracted_ids': 'showextract',
                                        'print_entry': 'entry'},
-                'option_includes': {'output', 'filter_regex', 'no_extension'},
+                'option_includes': {'libpath', 'output',
+                                    'package_regex', 'no_extension'},
                 'option_overrides': {'output': {'long_name': 'output',
                                                 'short_name': 'o'},
-                                     'filter_regex': {'long_name': 'filter',
-                                                      'short_name': 'f'},
+                                     'package_regex': {'long_name': 'filter',
+                                                       'short_name': 'f'},
                                      'no_extension': {'long_name': 'noext',
                                                       'short_name': None}}}
 
@@ -43,9 +44,13 @@ class Exporter(object):
     def _get_extractor(self, texpath: str) -> Extractor:
         return self.config_factory.new_instance('extractor', texpaths=texpath)
 
-    def _set_log_level_info(self):
-        #logging.getLogger(self.log_name).setLevel(logging.INFO)
-        pass
+    def _get_package_finder(self, texpath: str, package_regex: str,
+                            library_dir: str) -> PackageFinder:
+        return self.config_factory.new_instance(
+            'package_finder',
+            texpaths=texpath,
+            package_regex=package_regex,
+            library_dirs=library_dir)
 
     def converters(self):
         """List converters and their information."""
@@ -95,7 +100,6 @@ class Exporter(object):
         :param output: the output path name, or standard out if not given
 
         """
-        self._set_log_level_info()
         extractor = self._get_extractor(texpath)
         if output is None:
             extractor.extract()
@@ -103,21 +107,24 @@ class Exporter(object):
             with open(output, 'w') as f:
                 extractor.extract(writer=f)
 
-    def package(self, texpath: str, filter_regex: str = '^zen',
-                no_extension: bool = False):
+    def package(self, texpath: str, libpath: str = None,
+                package_regex: str = None, no_extension: bool = False):
         """Return a list of all packages.
 
         :param texpath: a path separated (':' on Linux) list of files or
-                         directories to export
+                        directories to export
 
-        :param filter_regex: the regular expression used to filter packages
+        :param libpath: a path separated (':' on Linux) list of files or
+                        directories of libraries to not include in results
+
+        :param package_regex: the regular expression used to filter packages
 
         :param no_extension: do not add the .sty extension
 
         """
-        find_pkgs: Callable = self.config_factory.new_instance(
-            'package_finder', texpaths=texpath, package_regex=filter_regex)
-        pkgs: Set[str] = find_pkgs()
+        pkg_finder: PackageFinder = self._get_package_finder(
+            texpath, package_regex)
+        pkgs: Set[str] = pkg_finder.get_packages()
         pkgs = sorted(pkgs)
         if not no_extension:
             pkgs = tuple(map(lambda s: f'{s}.sty', pkgs))
