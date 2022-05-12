@@ -4,10 +4,9 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Dict
+from typing import Dict, Set, Callable
 from dataclasses import dataclass, field
 import logging
-import os
 from pathlib import Path
 from zensols.config import ConfigFactory
 from . import Extractor, ConverterLibrary
@@ -20,14 +19,17 @@ class Exporter(object):
     """This utility extracts Bib(La)Tex references from a (La)Tex.
 
     """
-    CLI_META = {'mnemonic_excludes': {'get_extractor'},
-                'mnemonic_overrides': {'print_bibtex_ids': 'showbib',
+    CLI_META = {'mnemonic_overrides': {'print_bibtex_ids': 'showbib',
                                        'print_texfile_refs': 'showtex',
                                        'print_extracted_ids': 'showextract',
                                        'print_entry': 'entry'},
-                'option_includes': {'output'},
+                'option_includes': {'output', 'filter_regex', 'no_extension'},
                 'option_overrides': {'output': {'long_name': 'output',
-                                                'short_name': 'o'}}}
+                                                'short_name': 'o'},
+                                     'filter_regex': {'long_name': 'filter',
+                                                      'short_name': 'f'},
+                                     'no_extension': {'long_name': 'noext',
+                                                      'short_name': None}}}
 
     config_factory: ConfigFactory = field()
     """The configuration factory used to create this instance."""
@@ -38,8 +40,8 @@ class Exporter(object):
     log_name: str = field()
     """The name of the package logger."""
 
-    def get_extractor(self, texpath: Path = None) -> Extractor:
-        return self.config_factory.new_instance('extractor', texpath=texpath)
+    def _get_extractor(self, texpath: str) -> Extractor:
+        return self.config_factory.new_instance('extractor', texpaths=texpath)
 
     def _set_log_level_info(self):
         #logging.getLogger(self.log_name).setLevel(logging.INFO)
@@ -51,7 +53,7 @@ class Exporter(object):
 
     def print_bibtex_ids(self):
         """Print BibTex citation keys."""
-        extractor = self.get_extractor()
+        extractor = self._get_extractor()
         extractor.print_bibtex_ids()
 
     def print_texfile_refs(self, texpath: Path):
@@ -80,59 +82,43 @@ class Exporter(object):
         :param citation_key: the citation key of entry to print out
 
         """
-        extractor = self.get_extractor()
+        extractor = self._get_extractor()
         entry: Dict[str, Dict[str, str]] = extractor.get_entry(citation_key)
         extractor.write_entry(entry)
 
-    def export(self, texpath: Path, output: Path = None):
+    def export(self, texpath: str, output: Path = None):
         """Export the derived BibTex file.
 
-        :param texpath: either a file or directory to recursively scan for
-                        files with LaTex citation references
+        :param texpath: a path separated (':' on Linux) list of files or
+                         directories to export
 
         :param output: the output path name, or standard out if not given
 
         """
         self._set_log_level_info()
-        extractor = self.get_extractor(texpath)
+        extractor = self._get_extractor(texpath)
         if output is None:
             extractor.extract()
         else:
             with open(output, 'w') as f:
                 extractor.extract(writer=f)
 
-    def export_all(self, texpaths: str, output: Path = None):
-        """Export the derived BibTex file from a list of paths.
+    def package(self, texpath: str, filter_regex: str = '^zen',
+                no_extension: bool = False):
+        """Return a list of all packages.
 
-        :param texpaths: a path separated (':' on Linux) list of files or
+        :param texpath: a path separated (':' on Linux) list of files or
                          directories to export
 
-        :param output: the output path name, or standard out if not given
+        :param filter_regex: the regular expression used to filter packages
+
+        :param no_extension: do not add the .sty extension
 
         """
-        extractor = None
-        entries: Dict[str, Dict[str, str]] = {}
-        self._set_log_level_info()
-        for path in map(Path, texpaths.split(os.pathsep)):
-            if path.exists():
-                if logger.isEnabledFor(logging.INFO):
-                    logger.info(f'exporting {path}')
-                extractor = self.get_extractor(path)
-                ex_entries: Dict[str, Dict[str, str]] = extractor.extracted_entries
-                entries.update(ex_entries)
-                logger.info(f'parsed {len(ex_entries)} entries from {path}')
-                if logger.isEnabledFor(logging.DEBUG):
-                    keys = ', '.join(ex_entries.keys())
-                    logger.debug(f'keys: {keys}')
-            else:
-                logger.warning(f'file or directory missing: {path}--skipping')
-        if logger.isEnabledFor(logging.DEBUG):
-            keys = ', '.join(entries.keys())
-            logger.debug(f'creating extracted file with: {keys}')
-        if output is None:
-            extractor.extract(extracted_entries=entries)
-        else:
-            with open(output, 'w') as f:
-                extractor.extract(writer=f, extracted_entries=entries)
-        if output is not None:
-            logger.info(f'wrote {output}')
+        find_pkgs: Callable = self.config_factory.new_instance(
+            'package_finder', texpaths=texpath, package_regex=filter_regex)
+        pkgs: Set[str] = find_pkgs()
+        pkgs = sorted(pkgs)
+        if not no_extension:
+            pkgs = tuple(map(lambda s: f'{s}.sty', pkgs))
+        print('\n'.join(pkgs))

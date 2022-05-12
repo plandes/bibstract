@@ -19,8 +19,9 @@ class TestBase(unittest.TestCase):
         if not hasattr(self, 'CONF'):
             self.CONF = 'test-resources/default.conf'
         harn: CliHarness = ApplicationFactory.create_harness()
-        self.app: Exporter = harn.get_instance(f'-c {self.CONF} converters')
-        self.extractor: Extractor = self.app.get_extractor(
+        self.app: Exporter = harn.get_instance(
+            f'-c {self.CONF} converters --level warn')
+        self.extractor: Extractor = self.app._get_extractor(
             Path('test-resources/someproj'))
 
     def _get_entry(self, key):

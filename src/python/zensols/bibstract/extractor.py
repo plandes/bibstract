@@ -8,7 +8,6 @@ from typing import Dict, Tuple, Iterable
 from dataclasses import dataclass, field
 import sys
 import logging
-import re
 from pathlib import Path
 from io import TextIOWrapper
 import bibtexparser
@@ -17,7 +16,7 @@ from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
 from . import (
-    BibstractError, TexFileIterator, RegexFileParser,
+    BibstractError, TexPathIterator, RegexFileParser,
     Converter, ConverterLibrary
 )
 
@@ -25,13 +24,11 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class Extractor(TexFileIterator):
+class Extractor(TexPathIterator):
     """Extracts references, parses the BibTex master source file, and extracts
     matching references from the LaTex file.
 
     """
-    TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
-
     converter_library: ConverterLibrary = field()
     """The converter library used to print what's available."""
 
@@ -71,16 +68,7 @@ class Extractor(TexFileIterator):
 
         """
         parser = RegexFileParser()
-        path = self.texpath
-        logger.info(f'parsing references from Tex file: {path}')
-        if path.is_file():
-            paths = (path,)
-        elif path.is_dir():
-            paths = tuple(filter(self._is_tex_file, path.rglob('*')))
-        else:
-            raise BibstractError(f'No such file or directory: {path}')
-        logger.debug(f'parsing references from Tex files: {paths}')
-        for path in paths:
+        for path in self._get_tex_paths():
             with open(path) as f:
                 parser.find(f)
         if logger.isEnabledFor(logging.DEBUG):

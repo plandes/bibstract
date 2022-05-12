@@ -3,11 +3,12 @@
 """
 __author__ = 'Paul Landes'
 
-from typing import Set, Dict, List, Tuple
+from typing import Set, Dict, List, Tuple, Sequence, Union, Iterable
 from dataclasses import dataclass, field
+import os
 import logging
 import sys
-from itertools import chain
+import itertools as it
 from pathlib import Path
 from io import TextIOBase
 import re
@@ -25,12 +26,35 @@ class BibstractError(ApplicationError):
 
 
 @dataclass
-class TexFileIterator(object):
-    texpath: Path = field()
+class TexPathIterator(object):
+    TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
+
+    texpaths: Union[str, Path, Sequence[Path]] = field()
     """Either a file or directory to recursively scan for files with LaTex citation
     references.
 
     """
+    def __post_init__(self):
+        if isinstance(self.texpaths, Path):
+            self.texpaths = (self.texpaths,)
+        if isinstance(self.texpaths, str):
+            self.texpaths = tuple(map(Path, self.texpaths.split(os.pathsep)))
+
+    def _iterate_path(self, par: Path):
+        childs: Iterable[Path]
+        if par.is_file():
+            childs = (par,)
+        elif par.is_dir():
+            childs = it.chain.from_iterable(map(self._iterate_path, par.iterdir()))
+        else:
+            childs = ()
+            logger.warning(f'unknown file type: {par}--skipping')
+        return childs
+
+    def _get_tex_paths(self) -> Iterable[Path]:
+        files = it.chain.from_iterable(map(self._iterate_path, self.texpaths))
+        return filter(self._is_tex_file, files)
+
     def _is_tex_file(self, path: Path) -> bool:
         """Return whether or not path is a file that might contain citation references.
 
@@ -49,13 +73,11 @@ class RegexFileParser(object):
     tex files (i.e. ``\\cite`` commands).
 
     """
-
     MULTI_REF_REGEX = re.compile(r'\s*,\s*')
     """The regular expression used to find comma separated lists of citations
     commands (i.e. ``\\cite``).
 
     """
-
     pattern: re.Pattern = field(default=REF_REGEX)
     """The regular expression pattern used to find the references."""
 
@@ -65,7 +87,7 @@ class RegexFileParser(object):
     def find(self, fileobj: TextIOBase):
         for line in fileobj.readlines():
             refs = self.pattern.findall(line)
-            refs = chain.from_iterable(
+            refs = it.chain.from_iterable(
                 map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
             # if logger.isEnabledFor(logging.DEBUG):
             #     logger.debug(f'found refs: {", ".join(refs)}')
