@@ -1,8 +1,12 @@
 # BibTex Extract and Populate
 
-[![Travis CI Build Status][travis-badge]][travis-link]
 [![PyPI][pypi-badge]][pypi-link]
-[![Python 3.9][python37-badge]][python37-link]
+[![Python 3.7][python37-badge]][python37-link]
+[![Python 3.8][python38-badge]][python38-link]
+[![Python 3.9][python39-badge]][python39-link]
+[![Build Status][build-badge]][build-link]
+
+
 
 This utility extracts [BibTex] references (a.k.a *markers*) from a [(La)Tex]
 file and copies entries from a source, which the *master BibTex file*.  The use
@@ -118,13 +122,17 @@ SOFTWARE.
 
 
 <!-- links -->
-[travis-link]: https://travis-ci.org/plandes/bibstract
-[travis-badge]: https://travis-ci.org/plandes/bibstract.svg?branch=master
 [pypi]: https://pypi.org/project/zensols.bibstract/
 [pypi-link]: https://pypi.python.org/pypi/zensols.bibstract
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.bibstract.svg
-[python37-badge]: https://img.shields.io/badge/python-3.9-blue.svg
+[python37-badge]: https://img.shields.io/badge/python-3.7-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
+[python38-badge]: https://img.shields.io/badge/python-3.8-blue.svg
+[python38-link]: https://www.python.org/downloads/release/python-380
+[python39-badge]: https://img.shields.io/badge/python-3.9-blue.svg
+[python39-link]: https://www.python.org/downloads/release/python-390
+[build-badge]: https://github.com/plandes/bibstract/workflows/CI/badge.svg
+[build-link]: https://github.com/plandes/bibstract/actions
 
 [configuration file]: #example-configuration-file
 [BetterBibtex]: https://github.com/retorquere/zotero-better-bibtex
