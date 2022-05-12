@@ -26,6 +26,11 @@ class DateToYearConverter(DestructiveConverter):
     NAME = 'date_year'
     """The name of the converter."""
 
+    def __post_init__(self):
+        import warnings
+        m = 'The localize method is no longer necessary, as this time zone'
+        warnings.filterwarnings("ignore", message=m)
+
     def _convert(self, entry: Dict[str, str]):
         if 'date' in entry:
             dt_str = entry['date']
