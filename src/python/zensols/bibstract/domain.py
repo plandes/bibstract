@@ -27,6 +27,9 @@ class BibstractError(ApplicationError):
 
 @dataclass
 class TexPathIterator(object):
+    """Base class that finds LaTeX files (``.tex``, ``.sty``, etc).
+
+    """
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
 
     texpaths: Union[str, Path, Sequence[Path]] = field()
@@ -39,6 +42,7 @@ class TexPathIterator(object):
 
     def _to_path_seq(self, path_thing: Union[str, Path, Sequence[Path]]) -> \
             Sequence[Path]:
+        """Create a path sequence from a string, path or sequence of paths."""
         if path_thing is None:
             path_thing = ()
         if isinstance(path_thing, Path):
@@ -47,7 +51,8 @@ class TexPathIterator(object):
             path_thing = tuple(map(Path, path_thing.split(os.pathsep)))
         return path_thing
 
-    def _iterate_path(self, par: Path):
+    def _iterate_path(self, par: Path) -> Iterable[Path]:
+        """Recursively find LaTeX files."""
         childs: Iterable[Path]
         if par.is_file():
             childs = (par,)
@@ -60,6 +65,9 @@ class TexPathIterator(object):
         return childs
 
     def _get_tex_paths(self, paths: Sequence[Path] = None) -> Iterable[Path]:
+        """Recursively find LaTeX files in all directories/files in ``paths``.
+
+        """
         paths = self.texpaths if paths is None else paths
         files = it.chain.from_iterable(map(self._iterate_path, paths))
         return filter(self._is_tex_file, files)
@@ -90,7 +98,7 @@ class RegexFileParser(object):
     pattern: re.Pattern = field(default=REF_REGEX)
     """The regular expression pattern used to find the references."""
 
-    collector: Set[str] = field(default_factory=lambda: set())
+    collector: Set[str] = field(default_factory=set)
     """The set to add found references."""
 
     def find(self, fileobj: TextIOBase):
@@ -98,8 +106,6 @@ class RegexFileParser(object):
             refs = self.pattern.findall(line)
             refs = it.chain.from_iterable(
                 map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
-            # if logger.isEnabledFor(logging.DEBUG):
-            #     logger.debug(f'found refs: {", ".join(refs)}')
             self.collector.update(refs)
 
 

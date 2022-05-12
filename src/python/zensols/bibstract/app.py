@@ -23,7 +23,7 @@ class Exporter(object):
                                        'print_texfile_refs': 'showtex',
                                        'print_extracted_ids': 'showextract',
                                        'print_entry': 'entry'},
-                'option_includes': {'libpath', 'output',
+                'option_includes': {'libpath', 'output', 'inverse',
                                     'package_regex', 'no_extension'},
                 'option_overrides': {'output': {'long_name': 'output',
                                                 'short_name': 'o'},
@@ -45,12 +45,15 @@ class Exporter(object):
         return self.config_factory.new_instance('extractor', texpaths=texpath)
 
     def _get_package_finder(self, texpath: str, package_regex: str,
-                            library_dir: str) -> PackageFinder:
+                            library_dir: str, inverse: bool = False) -> \
+            PackageFinder:
         return self.config_factory.new_instance(
             'package_finder',
             texpaths=texpath,
             package_regex=package_regex,
-            library_dirs=library_dir)
+            library_dirs=library_dir,
+            inverse=inverse,
+        )
 
     def converters(self):
         """List converters and their information."""
@@ -108,7 +111,8 @@ class Exporter(object):
                 extractor.extract(writer=f)
 
     def package(self, texpath: str, libpath: str = None,
-                package_regex: str = None, no_extension: bool = False):
+                package_regex: str = None, no_extension: bool = False,
+                inverse: bool = False):
         """Return a list of all packages.
 
         :param texpath: a path separated (':' on Linux) list of files or
@@ -123,7 +127,7 @@ class Exporter(object):
 
         """
         pkg_finder: PackageFinder = self._get_package_finder(
-            texpath, package_regex)
+            texpath, package_regex, inverse=inverse)
         pkgs: Set[str] = pkg_finder.get_packages()
         pkgs = sorted(pkgs)
         if not no_extension:
