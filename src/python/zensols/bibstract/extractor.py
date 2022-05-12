@@ -56,9 +56,6 @@ class Extractor(object):
         parser.ignore_nonstandard_types = False
         with open(self.master_bib) as f:
             db = bibtexparser.load(f, parser)
-        # if logger.isEnabledFor(logging.DEBUG):
-        #     ids = list(map(lambda e: e['ID'], db.entries))
-        #     logger.debug(f'parsed ids: {ids}')
         return db
 
     @property
@@ -107,7 +104,6 @@ class Extractor(object):
         bib = set(self.bibtex_ids)
         trefs = self.tex_refs
         if logger.isEnabledFor(logging.DEBUG):
-            #logger.debug(f'bib IDS: {bib}')
             logger.debug(f'extracted: {trefs}')
         return bib & trefs
 
