@@ -16,8 +16,7 @@ from bibtexparser.bwriter import BibTexWriter
 from bibtexparser.bparser import BibTexParser
 from zensols.persist import persisted
 from . import (
-    BibstractError, TexPathIterator, RegexFileParser,
-    Converter, ConverterLibrary
+    TexPathIterator, RegexFileParser, Converter, ConverterLibrary
 )
 
 logger = logging.getLogger(__name__)

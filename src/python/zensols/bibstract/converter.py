@@ -26,21 +26,33 @@ class DateToYearConverter(DestructiveConverter):
     NAME = 'date_year'
     """The name of the converter."""
 
+    source_field: str = field(default='date')
+
+    update_fields: Tuple[str] = field(default=('year',))
+    """The fields to update using the new date format."""
+
+    format: str = field(default='%Y')
+    """The :meth:`datetime.datetime.strftime` formatted time, which defaults to
+    a four digit year.
+
+    """
     def __post_init__(self):
         import warnings
         m = 'The localize method is no longer necessary, as this time zone'
         warnings.filterwarnings("ignore", message=m)
 
     def _convert(self, entry: Dict[str, str]):
-        if 'date' in entry:
-            dt_str = entry['date']
+        if self.source_field in entry:
+            dt_str = entry[self.source_field]
             dt: datetime = dateparser.parse(dt_str)
             if dt is None:
                 raise BibstractError(
                     f"Could not parse date: {dt_str} for entry {entry['ID']}")
+            dtfmt = dt.strftime(self.format)
             if logger.isEnabledFor(logging.DEBUG):
-                logger.debug(f"{entry['date']} -> {dt} -> {dt.year}")
-            entry['year'] = str(dt.year)
+                logger.debug(f"{entry['date']} -> {dt} -> {dtfmt}")
+            for update_field in self.update_fields:
+                entry[update_field] = dtfmt
             if self.destructive:
                 del entry['date']
 
@@ -158,6 +170,8 @@ class ConditionalConverter(Converter):
     key/value pair matches.
 
     """
+    NAME = 'conditional_converter'
+
     config_factory: ConfigFactory = field()
     """The configuration factory used to create this converter and used to get
     referenced converters.
