@@ -2,8 +2,7 @@
 
 ## build config
 PROJ_TYPE =		python
-PROJ_MODULES =		python-all
-PROJ_MODULES =		git python-resources python-cli python-doc 
+PROJ_MODULES =		git python-resources python-cli python-doc python-doc-deploy
 INFO_TARGETS +=		appinfo
 
 #PY_SRC_TEST_PAT = "test_p*.py"

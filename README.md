@@ -90,6 +90,13 @@ destructive = False
 ```
 
 
+## Documentation
+
+See the [full documentation](https://plandes.github.io/bibstract/index.html).
+The [API reference](https://plandes.github.io/bibstract/api.html) is also
+available.
+
+
 ## Changelog
 
 An extensive changelog is available [here](CHANGELOG.md).
