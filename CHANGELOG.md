@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [0.1.1] - 2022-10-07
 ### Changes
 - Upgrade [zensols.util] and application configuration strategy.
 - More robust and various date converter fixes.
@@ -70,7 +71,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 <!-- links -->
-[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/Paul Landes/bibstract/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/Paul Landes/bibstract/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/Paul Landes/bibstract/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/Paul Landes/bibstract/compare/v0.0.3...v0.0.4
