@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+### Changes
+- Upgrade [zensols.util] and application configuration strategy.
+- More robust and various date converter fixes.
+
+### Removed
+- Support for Python 3.7, 3.8.
+
+
 ## [0.1.0] - 2022-05-12
 ### Added
 - Support to find packages and packages as dependencies from LaTeX `usepackage`
