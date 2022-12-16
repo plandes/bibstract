@@ -85,12 +85,12 @@ class RegexFileParser(object):
     """Finds all instances of the citation references in a file.
 
     """
-    REF_REGEX = re.compile(r'\{([a-zA-Z0-9,-]+?)\}')
+    REF_REGEX = re.compile(r'\\cite\{(.+?)\}|\{([a-zA-Z0-9,-]+?)\}')
     """The default regular expression used to find citation references in sty and
     tex files (i.e. ``\\cite`` commands).
 
     """
-    MULTI_REF_REGEX = re.compile(r'\s*,\s*')
+    MULTI_REF_REGEX = re.compile(r'[^,\s]+')
     """The regular expression used to find comma separated lists of citations
     commands (i.e. ``\\cite``).
 
@@ -102,10 +102,15 @@ class RegexFileParser(object):
     """The set to add found references."""
 
     def find(self, fileobj: TextIOBase):
+        def map_match(t: Union[str, Tuple[str, str]]) -> Iterable[str]:
+            if not isinstance(t, str):
+                t = t[0] if len(t[0]) > 0 else t[1]
+            return filter(lambda s: not s.startswith('\\'),
+                          re.findall(self.MULTI_REF_REGEX, t))
+
         for line in fileobj.readlines():
-            refs = self.pattern.findall(line)
-            refs = it.chain.from_iterable(
-                map(lambda r: re.split(self.MULTI_REF_REGEX, r), refs))
+            refs: List[Tuple[str, str]] = self.pattern.findall(line)
+            refs = it.chain.from_iterable(map(map_match, refs))
             self.collector.update(refs)
 
 
