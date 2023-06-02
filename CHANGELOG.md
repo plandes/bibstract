@@ -76,14 +76,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 <!-- links -->
-[Unreleased]: https://github.com/Paul Landes/bibstract/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/Paul Landes/bibstract/compare/v0.1.1...v1.0.0
-[0.1.1]: https://github.com/Paul Landes/bibstract/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/Paul Landes/bibstract/compare/v0.0.5...v0.1.0
-[0.0.5]: https://github.com/Paul Landes/bibstract/compare/v0.0.4...v0.0.5
-[0.0.4]: https://github.com/Paul Landes/bibstract/compare/v0.0.3...v0.0.4
-[0.0.3]: https://github.com/Paul Landes/bibstract/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/Paul Landes/bibstract/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/Paul Landes/bibstract/compare/v0.0.0...v0.0.1
+[Unreleased]: https://github.com/plandes/bibstract/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/plandes/bibstract/compare/v0.1.1...v1.0.0
+[0.1.1]: https://github.com/plandes/bibstract/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/plandes/bibstract/compare/v0.0.5...v0.1.0
+[0.0.5]: https://github.com/plandes/bibstract/compare/v0.0.4...v0.0.5
+[0.0.4]: https://github.com/plandes/bibstract/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/plandes/bibstract/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/plandes/bibstract/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/plandes/bibstract/compare/v0.0.0...v0.0.1
 
 [zensols.util]: https://github.com/plandes/util
