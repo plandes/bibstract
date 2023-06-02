@@ -72,7 +72,8 @@ modify each parsed BibTeX entry in succession.  Currently there the following:
   outputs a different named field). When `destructive` is set to ``True``, this
   copy operation becomes a move.
 
-Converters can be set be set and configured in the [configuration file].
+Converters can be set be set and configured in the [configuration file].  See
+the [test cases](test/python) for more examples.
 
 
 ## Configuration
