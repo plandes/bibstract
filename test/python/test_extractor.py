@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from io import StringIO
 from util import TestBase
-from zensols.bibstract import Exporter, Extractor, ApplicationFactory
+from zensols.bibstract import Extractor
 
 
 class TestExtractorBase(TestBase):
