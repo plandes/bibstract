@@ -1,26 +1,42 @@
-# BibTex Extract and Populate
+# BibTeX Extract and Populate
 
 [![PyPI][pypi-badge]][pypi-link]
 [![Python 3.9][python39-badge]][python39-link]
 [![Python 3.10][python310-badge]][python310-link]
 [![Build Status][build-badge]][build-link]
 
-This utility extracts [BibTex] references (a.k.a *markers*) from a [(La)Tex]
-file and copies entries from a source, which the *master BibTex file*.  The use
-case is exporting all [BetterBibtex] entries to a file on your file system,
-usually one that is updated as you add, remove and modify papers in [Zotero].
-
-**Note**:  While the use case was intended for use with Zoter and BetterBibtex,
-it will work on any BibTex file.
+This utility extracts [BibTeX] references (a.k.a *markers*) from a [(La)TeX]
+file and copies entries from a source, which the *master BibTeX file*.  It also
+provides easy customization to massage the entries of the BibTeX files (see
+[features](#features)).  The use case is exporting all [BetterBibtex] entries
+to a file on your file system, usually one that is updated as you add, remove
+and modify papers in [Zotero].  While the use case was intended for use with
+Zoter and BetterBibtex, it will work on any BibTeX system.
 
 The program does the following:
-1. Parses some large master source BibTex file.
+1. Parses some large master source BibTeX file.
 1. Parses a file or recursively all `.tex`, `.sty`, and `.cls` files
    recursively in a directory.
-1. Copies the matching entries from the master source BibTex to standard out.
+1. Copies the matching entries from the master source BibTeX to standard out.
 
-The program makes the assumption that the BibTex entry IDs are unique as the
-matches are very loose when parsing the (La)Tex file.
+The program makes the assumption that the BibTeX entry IDs are unique as the
+matches are very loose when parsing the (La)TeX file.
+
+
+## Features
+
+Many features relate to modifying older entries to accommodate newer systems
+(i.e. [BibLATEX]) or modifying newer entries to accommodate older systems
+(i.e. [BibTex]).
+
+Features:
+* Replace or edit Unicode characters, which is useful when
+  `\usepackage[utf8]{inputenc}` has no effect.
+* Massage date strings.
+* Remove certain entries that cause bibliography systems issues (useful for
+  [BibLATEX]).
+* Modify entries to normalize [arXiv] entries.
+
 
 
 ## Obtaining
@@ -38,19 +54,19 @@ Binaries are also available on [pypi].
 This is a command line program written that has the following usage (also use
 `--help`):
 
-* Print IDs in a master source file BibTex file: `bibstract showbib`.
-* Print cite references in a (La)Tex file: `bibstract showtex <file|directory>`
-* Print IDs that will be exported from the BibTex file: `bibstract showexport <file|directory>`
+* Print IDs in a master source file BibTeX file: `bibstract showbib`.
+* Print cite references in a (La)TeX file: `bibstract showtex <file|directory>`
+* Print IDs that will be exported from the BibTeX file: `bibstract showexport <file|directory>`
 * Export the matching entries to standard out: `bibstract export <file|directory>`
 
 
 ## Converters
 
 A set of *converters* can be specified in the [configuration file], which
-modify each parsed BibTex entry in succession.  Currently there the following:
+modify each parsed BibTeX entry in succession.  Currently there the following:
 * **date_year**: Converts the year part of a date field to a year.  This is
   useful when using Zotero's Better Biblatex extension that produces BibLatex
-  formats, but you need BibTex entries.
+  formats, but you need BibTeX entries.
 * **copy**: Copy or move one or more fields in the entry.  This is useful when
   your bibliography style expects one key, but the output (i.e.BibLatex)
   outputs a different named field). When `destructive` is set to ``True``, this
@@ -65,7 +81,7 @@ A [configuration file] must be given, whose location is either given with a
 `-c` command line argument, or set in the environment variable `BIBSTRACTRC`.
 
 An example [configuration file] is available, which has only one INI section
-`default` with option `master_bib` with the master BibTex file.
+`default` with option `master_bib` with the master BibTeX file.
 
 
 ### Example Configuration File
@@ -75,7 +91,7 @@ where you tell where [BetterBibtex] to export.  It then specifies to convert
 dates with years (deleting the `date` field after)when creating the output.
 
 In addition, it copies the `journaltitle` (exported by [BetterBibtex]) to
-`journal`, which is used by BibTex.  This converter, called *replace* is
+`journal`, which is used by BibTeX.  This converter, called *replace* is
 configured the `replace_converter` entry.
 
 ```ini
@@ -104,7 +120,7 @@ An extensive changelog is available [here](CHANGELOG.md).
 
 ## License
 
-Copyright (c) 2020 - 2022 Paul Landes
+Copyright (c) 2020 - 2023 Paul Landes
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -139,5 +155,7 @@ SOFTWARE.
 [configuration file]: #example-configuration-file
 [BetterBibtex]: https://github.com/retorquere/zotero-better-bibtex
 [Zotero]: https://www.zotero.org
-[BibTex]: http://www.bibtex.org
-[(La)Tex]: http://www.bibtex.org
+[BibTeX]: http://www.bibtex.org
+[BibLATEX]: https://ctan.org/pkg/biblatex?lang=en
+[(La)TeX]: http://www.bibtex.org
+[arXiv]: https://arxiv.org
