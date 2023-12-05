@@ -1,0 +1,4 @@
+<map id="inheritancec9aa3587db" name="inheritancec9aa3587db">
+<area shape="rect" id="node1" href="#zensols.bibstract.pkg.PackageFinder" target="_top" title="Find packages used in the tex path." alt="" coords="6,84,149,115"/>
+<area shape="rect" id="node2" href="#zensols.bibstract.domain.TexPathIterator" target="_top" title="Base class that finds LaTeX files (``.tex``, ``.sty``, etc)." alt="" coords="5,5,149,36"/>
+</map>

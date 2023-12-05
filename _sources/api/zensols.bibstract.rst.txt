@@ -1,0 +1,73 @@
+zensols.bibstract package
+=========================
+
+Submodules
+----------
+
+zensols.bibstract.app
+---------------------
+.. inheritance-diagram:: zensols.bibstract.app
+   :parts: 1
+
+.. automodule:: zensols.bibstract.app
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.bibstract.cli
+---------------------
+.. inheritance-diagram:: zensols.bibstract.cli
+   :parts: 1
+
+.. automodule:: zensols.bibstract.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.bibstract.converter
+---------------------------
+.. inheritance-diagram:: zensols.bibstract.converter
+   :parts: 1
+
+.. automodule:: zensols.bibstract.converter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.bibstract.domain
+------------------------
+.. inheritance-diagram:: zensols.bibstract.domain
+   :parts: 1
+
+.. automodule:: zensols.bibstract.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.bibstract.extractor
+---------------------------
+.. inheritance-diagram:: zensols.bibstract.extractor
+   :parts: 1
+
+.. automodule:: zensols.bibstract.extractor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.bibstract.pkg
+---------------------
+.. inheritance-diagram:: zensols.bibstract.pkg
+   :parts: 1
+
+.. automodule:: zensols.bibstract.pkg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.bibstract
+   :members:
+   :undoc-members:
+   :show-inheritance:

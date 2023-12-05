@@ -1,0 +1,10 @@
+<map id="inheritancef8b2ccb105" name="inheritancef8b2ccb105">
+<area shape="rect" id="node1" href="#zensols.bibstract.converter.ConditionalConverter" target="_top" title="A converter that invokes a list of other converters if a certain entry" alt="" coords="57,84,247,115"/>
+<area shape="rect" id="node2" href="#zensols.bibstract.domain.Converter" target="_top" title="A base class to convert fields of a BibTex entry (which is of type ``dict``)" alt="" coords="409,5,511,36"/>
+<area shape="rect" id="node4" href="#zensols.bibstract.domain.DestructiveConverter" target="_top" title="A converter that can optionally remove or modify entries." alt="" coords="271,84,462,115"/>
+<area shape="rect" id="node7" href="#zensols.bibstract.converter.ReplaceValue" target="_top" title="Replace values of entries by regular expression." alt="" coords="487,84,620,115"/>
+<area shape="rect" id="node8" href="#zensols.bibstract.converter.UpdateOrAddValue" target="_top" title="Update (clobber) or add a new mapping in an entry." alt="" coords="644,84,823,115"/>
+<area shape="rect" id="node3" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter" target="_top" title="Copy or move one or more fields in the entry. &#160;This is useful when your" alt="" coords="5,163,245,193"/>
+<area shape="rect" id="node5" href="#zensols.bibstract.converter.DateToYearConverter" target="_top" title="Converts the year part of a date field to a year. &#160;This is useful when using" alt="" coords="269,163,464,193"/>
+<area shape="rect" id="node6" href="#zensols.bibstract.converter.RemoveConverter" target="_top" title="Remove entries that match a regular expression." alt="" coords="489,163,658,193"/>
+</map>

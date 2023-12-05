@@ -1,0 +1,4 @@
+<map id="inheritance169eb9259e" name="inheritance169eb9259e">
+<area shape="rect" id="node1" href="#zensols.bibstract.extractor.Extractor" target="_top" title="Extracts references, parses the BibTex master source file, and extracts" alt="" coords="30,84,125,115"/>
+<area shape="rect" id="node2" href="#zensols.bibstract.domain.TexPathIterator" target="_top" title="Base class that finds LaTeX files (``.tex``, ``.sty``, etc)." alt="" coords="5,5,149,36"/>
+</map>

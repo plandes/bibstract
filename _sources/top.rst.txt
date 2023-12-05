@@ -1,0 +1,20 @@
+BibTeX Extract and Populate
+===========================
+This utility extracts Bib(La)Tex references (a.k.a *markers*) from a (La)Tex.
+
+.. toctree::
+   :maxdepth: 3
+   :glob:
+
+   Overview <index.md>
+   doc/*
+   API Reference <api.rst>
+   Contributing <CONTRIBUTING.md>
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
