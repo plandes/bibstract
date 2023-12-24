@@ -1,5 +1,5 @@
 """This utility extracts Bib(La)Tex references (a.k.a *markers*) from a
-(La)Tex.
+(La)TeX project.
 
 """
 __author__ = 'Paul Landes'
