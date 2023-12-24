@@ -39,8 +39,7 @@ class Exporter(object):
             texpaths=texpath,
             package_regex=package_regex,
             library_dirs=library_dir,
-            inverse=inverse,
-        )
+            inverse=inverse)
 
     def converters(self):
         """List converters and their information."""
