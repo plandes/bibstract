@@ -2,18 +2,9 @@
 
 from zensols.cli import ConfigurationImporterCliHarness
 
-# zenacademic.sty
-# zenacro.sty
-# zenfig.sty
-# zenmath.sty
-# zenreport.sty
-# zensec.sty
-
-
 harness = ConfigurationImporterCliHarness(
     src_dir_name='src/python',
     app_factory_class='zensols.bibstract.ApplicationFactory',
-    #config_path='test-resources/bibstract.conf',
     proto_args='package test-resources/someproj:zenbuild/src/sty',
     proto_factory_kwargs={'reload_pattern': r'^zensols.bibstract'},
 )
