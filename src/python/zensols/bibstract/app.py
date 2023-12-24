@@ -19,19 +19,6 @@ class Exporter(object):
     """This utility extracts Bib(La)Tex references from a (La)Tex.
 
     """
-    CLI_META = {'mnemonic_overrides': {'print_bibtex_ids': 'showbib',
-                                       'print_texfile_refs': 'showtex',
-                                       'print_extracted_ids': 'showextract',
-                                       'print_entry': 'entry'},
-                'option_includes': {'libpath', 'output', 'inverse',
-                                    'package_regex', 'no_extension'},
-                'option_overrides': {'output': {'long_name': 'output',
-                                                'short_name': 'o'},
-                                     'package_regex': {'long_name': 'filter',
-                                                       'short_name': 'f'},
-                                     'no_extension': {'long_name': 'noext',
-                                                      'short_name': None}}}
-
     config_factory: ConfigFactory = field()
     """The configuration factory used to create this instance."""
 
