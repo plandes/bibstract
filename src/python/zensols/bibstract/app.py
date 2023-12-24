@@ -127,7 +127,7 @@ class Exporter(object):
 
         """
         pkg_finder: PackageFinder = self._get_package_finder(
-            texpath, package_regex, inverse=inverse)
+            texpath, package_regex, library_dir=libpath, inverse=inverse)
         pkgs: Set[str] = pkg_finder.get_packages()
         pkgs = sorted(pkgs)
         if not no_extension:
