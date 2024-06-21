@@ -129,7 +129,8 @@ class UpdateOrAddValue(Converter):
             try:
                 val = dst.format(**entry)
             except KeyError as e:
-                msg = f'Can not execute update/add converter for {entry["ID"]}'
+                msg = ('Can not execute update/add converter for ' +
+                       f'{entry["ID"]}; no key: {e}')
                 raise BibstractError(msg) from e
             if logger.isEnabledFor(logging.DEBUG):
                 logger.debug(f'{src} -> {val}')
