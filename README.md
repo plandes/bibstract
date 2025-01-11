@@ -1,7 +1,6 @@
 # BibTeX Extract and Populate
 
 [![PyPI][pypi-badge]][pypi-link]
-[![Python 3.10][python310-badge]][python310-link]
 [![Python 3.11][python311-badge]][python311-link]
 [![Build Status][build-badge]][build-link]
 
@@ -127,7 +126,7 @@ Contributions as pull requests, feedback and any input is welcome.
 
 ## License
 
-Copyright (c) 2020 - 2023 Paul Landes
+Copyright (c) 2020 - 2025 Paul Landes
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -152,8 +151,6 @@ SOFTWARE.
 [pypi]: https://pypi.org/project/zensols.bibstract/
 [pypi-link]: https://pypi.python.org/pypi/zensols.bibstract
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.bibstract.svg
-[python310-badge]: https://img.shields.io/badge/python-3.10-blue.svg
-[python310-link]: https://www.python.org/downloads/release/python-3100
 [python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
 [python311-link]: https://www.python.org/downloads/release/python-3110
 [build-badge]: https://github.com/plandes/bibstract/workflows/CI/badge.svg
