@@ -1,0 +1,1168 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Contributing" href="../CONTRIBUTING.html" /><link rel="prev" title="API Reference" href="../api.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>zensols.bibstract package - BibTeX Extract and Populate 1.4.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../top.html"><div class="brand">BibTeX Extract and Populate 1.4.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../top.html">
+  
+  
+  <span class="sidebar-brand-text">BibTeX Extract and Populate 1.4.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">zensols.bibstract package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/api/zensols.bibstract.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="zensols-bibstract-package">
+<h1>zensols.bibstract package<a class="headerlink" href="#zensols-bibstract-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-zensols.bibstract.app">
+<span id="zensols-bibstract-app-module"></span><h2>zensols.bibstract.app module<a class="headerlink" href="#module-zensols.bibstract.app" title="Link to this heading">¶</a></h2>
+<p>This utility extracts Bib(La)Tex references (a.k.a <em>markers</em>) from a
+(La)TeX project.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.app.</span></span><span class="sig-name descname"><span class="pre">Application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This utility extracts Bib(La)Tex references from a (La)Tex.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.app.Application.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.config_factory">
+<span class="sig-name descname"><span class="pre">config_factory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.facbase.ConfigFactory" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigFactory</span></code></a></em><a class="headerlink" href="#zensols.bibstract.app.Application.config_factory" title="Link to this definition">¶</a></dt>
+<dd><p>The configuration factory used to create this instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.converter_library">
+<span class="sig-name descname"><span class="pre">converter_library</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary" title="zensols.bibstract.domain.ConverterLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConverterLibrary</span></code></a></em><a class="headerlink" href="#zensols.bibstract.app.Application.converter_library" title="Link to this definition">¶</a></dt>
+<dd><p>The converter library used to print what’s available.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.converters">
+<span class="sig-name descname"><span class="pre">converters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.converters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.converters" title="Link to this definition">¶</a></dt>
+<dd><p>List converters and their information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.export" title="Link to this definition">¶</a></dt>
+<dd><p>Export the derived BibTex file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>texpath</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – a path separated (‘:’ on Linux) list of files or
+directories to export</p></li>
+<li><p><strong>output</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – the output path name, or standard out if not given</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.log_name">
+<span class="sig-name descname"><span class="pre">log_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#zensols.bibstract.app.Application.log_name" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the package logger.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.package">
+<span class="sig-name descname"><span class="pre">package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">libpath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.package" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of all packages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>texpath</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – a path separated (‘:’ on Linux) list of files or
+directories to export</p></li>
+<li><p><strong>libpath</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – a path separated (‘:’ on Linux) list of files or
+directories of libraries to not include in results</p></li>
+<li><p><strong>package_regex</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – the regular expression used to filter packages</p></li>
+<li><p><strong>no_extension</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>) – do not add the .sty extension</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.print_bibtex_ids">
+<span class="sig-name descname"><span class="pre">print_bibtex_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.print_bibtex_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.print_bibtex_ids" title="Link to this definition">¶</a></dt>
+<dd><p>Print BibTex citation keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.print_entry">
+<span class="sig-name descname"><span class="pre">print_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">citation_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.print_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.print_entry" title="Link to this definition">¶</a></dt>
+<dd><p>Print a single BibTex entry as it would be given in the output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>citation_key</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – the citation key of entry to print out</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.print_extracted_ids">
+<span class="sig-name descname"><span class="pre">print_extracted_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.print_extracted_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.print_extracted_ids" title="Link to this definition">¶</a></dt>
+<dd><p>Print BibTex export citation keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>texpath</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – either a file or directory to recursively scan for
+files with LaTex citation references</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.app.Application.print_texfile_refs">
+<span class="sig-name descname"><span class="pre">print_texfile_refs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/app.html#Application.print_texfile_refs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.app.Application.print_texfile_refs" title="Link to this definition">¶</a></dt>
+<dd><p>Print citation references.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>texpath</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></span>) – either a file or directory to recursively scan for
+files with LaTex citation references</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract.cli">
+<span id="zensols-bibstract-cli-module"></span><h2>zensols.bibstract.cli module<a class="headerlink" href="#module-zensols.bibstract.cli" title="Link to this heading">¶</a></h2>
+<p>Command line entry point to the application.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.cli.ApplicationFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.cli.</span></span><span class="sig-name descname"><span class="pre">ApplicationFactory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/cli.html#ApplicationFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.cli.ApplicationFactory" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.cli.html#zensols.cli.app.ApplicationFactory" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApplicationFactory</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.cli.ApplicationFactory.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/cli.html#ApplicationFactory.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.cli.ApplicationFactory.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zensols.bibstract.cli.main">
+<span class="sig-prename descclassname"><span class="pre">zensols.bibstract.cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['/Users/landes/opt/lib/pixi/envs/zensols_relpo/bin/sphinx-build',</span> <span class="pre">'-M',</span> <span class="pre">'html',</span> <span class="pre">'/Users/landes/view/util/bibstract/target/doc/stage',</span> <span class="pre">'/Users/landes/view/util/bibstract/target/doc/build']</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.cli.main" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://plandes.github.io/util/api/zensols.cli.html#zensols.cli.app.ActionResult" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionResult</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract.converter">
+<span id="zensols-bibstract-converter-module"></span><h2>zensols.bibstract.converter module<a class="headerlink" href="#module-zensols.bibstract.converter" title="Link to this heading">¶</a></h2>
+<p>A library of built in converters.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">ConditionalConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converters=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includes=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excludes=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#ConditionalConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
+<p>A converter that invokes a list of other converters if a certain entry
+key/value pair matches.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'conditional_converter'</span></em><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.NAME" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converters=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includes=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excludes=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.config_factory">
+<span class="sig-name descname"><span class="pre">config_factory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.facbase.ConfigFactory" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigFactory</span></code></a></em><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.config_factory" title="Link to this definition">¶</a></dt>
+<dd><p>The configuration factory used to create this converter and used to get
+referenced converters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.converters">
+<span class="sig-name descname"><span class="pre">converters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.converters" title="Link to this definition">¶</a></dt>
+<dd><p>The list of converters to inovke if the predicate condition is satisfied.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.excludes">
+<span class="sig-name descname"><span class="pre">excludes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.excludes" title="Link to this definition">¶</a></dt>
+<dd><p>The key/values that can <em>not</em> match in the entry to invoke the converters
+referenced by <a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.converters" title="zensols.bibstract.converter.ConditionalConverter.converters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">converters</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ConditionalConverter.includes">
+<span class="sig-name descname"><span class="pre">includes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.converter.ConditionalConverter.includes" title="Link to this definition">¶</a></dt>
+<dd><p>The key/values that must match in the entry to invoke the converters
+referenced by <a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.converters" title="zensols.bibstract.converter.ConditionalConverter.converters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">converters</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.CopyOrMoveKeyConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">CopyOrMoveKeyConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#CopyOrMoveKeyConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter" title="zensols.bibstract.domain.DestructiveConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DestructiveConverter</span></code></a></p>
+<p>Copy or move one or more fields in the entry.  This is useful when your
+bibliography style expects one key, but the output (i.e.BibLatex) outputs a
+different named field).</p>
+<p>When :obj:<code class="docutils literal notranslate"><span class="pre">destructive</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, this copy operation becomes a
+move.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.CopyOrMoveKeyConverter.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'copy'</span></em><a class="headerlink" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.NAME" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the converter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.CopyOrMoveKeyConverter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.CopyOrMoveKeyConverter.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.fields" title="Link to this definition">¶</a></dt>
+<dd><p>The source to target list of fields specifying which keys to keys get copied
+or moved.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">DateToYearConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('year',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#DateToYearConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter" title="zensols.bibstract.domain.DestructiveConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DestructiveConverter</span></code></a></p>
+<p>Converts the year part of a date field to a year.  This is useful when using
+Zotero’s Better Biblatex extension that produces BibLatex formats, but you
+need BibTex entries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'date_year'</span></em><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter.NAME" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the converter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('year',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter.format">
+<span class="sig-name descname"><span class="pre">format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%Y'</span></em><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter.format" title="Link to this definition">¶</a></dt>
+<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.strftime" title="(in Python v3.13)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.strftime()</span></code></a> formatted time, which defaults to
+a four digit year.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter.source_field">
+<span class="sig-name descname"><span class="pre">source_field</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'date'</span></em><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter.source_field" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.DateToYearConverter.update_fields">
+<span class="sig-name descname"><span class="pre">update_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('year',)</span></em><a class="headerlink" href="#zensols.bibstract.converter.DateToYearConverter.update_fields" title="Link to this definition">¶</a></dt>
+<dd><p>The fields to update using the new date format.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.RemoveConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">RemoveConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#RemoveConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.RemoveConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter" title="zensols.bibstract.domain.DestructiveConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">DestructiveConverter</span></code></a></p>
+<p>Remove entries that match a regular expression.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.RemoveConverter.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'remove'</span></em><a class="headerlink" href="#zensols.bibstract.converter.RemoveConverter.NAME" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the converter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.RemoveConverter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.RemoveConverter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.RemoveConverter.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#zensols.bibstract.converter.RemoveConverter.keys" title="Link to this definition">¶</a></dt>
+<dd><p>A list of regular expressions, that if match the entry key, will remove the
+entry.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ReplaceValue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">ReplaceValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#ReplaceValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.ReplaceValue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
+<p>Replace values of entries by regular expression.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ReplaceValue.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'replace'</span></em><a class="headerlink" href="#zensols.bibstract.converter.ReplaceValue.NAME" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ReplaceValue.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.ReplaceValue.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.ReplaceValue.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#zensols.bibstract.converter.ReplaceValue.fields" title="Link to this definition">¶</a></dt>
+<dd><p>A list of tuples, each tuple having the key of the entry to modify, a string
+regular expression of what to change, and the replacement string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.UpdateOrAddValue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.converter.</span></span><span class="sig-name descname"><span class="pre">UpdateOrAddValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/converter.html#UpdateOrAddValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.converter.UpdateOrAddValue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
+<p>Update (clobber) or add a new mapping in an entry.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.UpdateOrAddValue.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'update'</span></em><a class="headerlink" href="#zensols.bibstract.converter.UpdateOrAddValue.NAME" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.UpdateOrAddValue.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.converter.UpdateOrAddValue.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.converter.UpdateOrAddValue.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#zensols.bibstract.converter.UpdateOrAddValue.fields" title="Link to this definition">¶</a></dt>
+<dd><p>A list of tuples, each tuple having the key to add and the value to update
+or add using Python interpolation syntax from existing entry keys.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract.domain">
+<span id="zensols-bibstract-domain-module"></span><h2>zensols.bibstract.domain module<a class="headerlink" href="#module-zensols.bibstract.domain" title="Link to this heading">¶</a></h2>
+<p>Domain and utility classes.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.BibstractError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">BibstractError</span></span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#BibstractError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.BibstractError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.cli.html#zensols.cli.meta.ApplicationError" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ApplicationError</span></code></a></p>
+<p>Application level error.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.BibstractError.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'zensols.bibstract.domain'</span></em><a class="headerlink" href="#zensols.bibstract.domain.BibstractError.__module__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.Converter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">Converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#Converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.Converter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A base class to convert fields of a BibTex entry (which is of type <code class="docutils literal notranslate"><span class="pre">dict</span></code>)
+to another field.</p>
+<p>Subclasses should override <code class="xref py py-meth docutils literal notranslate"><span class="pre">_convert()</span></code>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.Converter.ENTRY_TYPE">
+<span class="sig-name descname"><span class="pre">ENTRY_TYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ENTRYTYPE'</span></em><a class="headerlink" href="#zensols.bibstract.domain.Converter.ENTRY_TYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.Converter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.domain.Converter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.Converter.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#Converter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.Converter.convert" title="Link to this definition">¶</a></dt>
+<dd><p>Convert and return a new entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>) – the source data to transform</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a new instance of a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with the transformed data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.Converter.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></em><a class="headerlink" href="#zensols.bibstract.domain.Converter.name" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the converter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">ConverterLibrary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_class_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#ConverterLibrary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.util.html#zensols.util.writable.Writable" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_class_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.config_factory">
+<span class="sig-name descname"><span class="pre">config_factory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.facbase.ConfigFactory" title="(in Zensols Utilities v1.15.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigFactory</span></code></a></em><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.config_factory" title="Link to this definition">¶</a></dt>
+<dd><p>The configuration factory used to create the converters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.converter_class_names">
+<span class="sig-name descname"><span class="pre">converter_class_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.converter_class_names" title="Link to this definition">¶</a></dt>
+<dd><p>The list of converter class names currently available.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.converter_names">
+<span class="sig-name descname"><span class="pre">converter_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.converter_names" title="Link to this definition">¶</a></dt>
+<dd><p>A list of converter names used to convert to BibTex entries.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.converters">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">converters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><span class="pre">Converter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.converters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.converters_by_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">converters_by_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><span class="pre">Converter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.converters_by_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.ConverterLibrary.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markdown_depth=1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#ConverterLibrary.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.ConverterLibrary.write" title="Link to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention
+<code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a></span>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.DestructiveConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">DestructiveConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#DestructiveConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.DestructiveConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
+<p>A converter that can optionally remove or modify entries.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.DestructiveConverter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destructive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.domain.DestructiveConverter.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.DestructiveConverter.destructive">
+<span class="sig-name descname"><span class="pre">destructive</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#zensols.bibstract.domain.DestructiveConverter.destructive" title="Link to this definition">¶</a></dt>
+<dd><p>If true, remove the original field if converting from one key to another in
+the Bibtex entry.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">RegexFileParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern=re.compile('\\\\\\\\cite\\\\{(.+?)\\\\}|\\\\{([a-zA-Z0-9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-]+?)\\\\}')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#RegexFileParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Finds all instances of the citation references in a file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.MULTI_REF_REGEX">
+<span class="sig-name descname"><span class="pre">MULTI_REF_REGEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('[^,\\s]+')</span></em><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.MULTI_REF_REGEX" title="Link to this definition">¶</a></dt>
+<dd><p>The regular expression used to find comma separated lists of citations
+commands (i.e. <code class="docutils literal notranslate"><span class="pre">\cite</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.REF_REGEX">
+<span class="sig-name descname"><span class="pre">REF_REGEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\\\cite\\{(.+?)\\}|\\{([a-zA-Z0-9,-]+?)\\}')</span></em><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.REF_REGEX" title="Link to this definition">¶</a></dt>
+<dd><p>The default regular expression used to find citation references in sty and
+tex files (i.e. <code class="docutils literal notranslate"><span class="pre">\cite</span></code> commands).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern=re.compile('\\\\\\\\cite\\\\{(.+?)\\\\}|\\\\{([a-zA-Z0-9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">-]+?)\\\\}')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.collector">
+<span class="sig-name descname"><span class="pre">collector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.collector" title="Link to this definition">¶</a></dt>
+<dd><p>The set to add found references.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileobj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#RegexFileParser.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.find" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.RegexFileParser.pattern">
+<span class="sig-name descname"><span class="pre">pattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/re.html#re.Pattern" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pattern</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('\\\\cite\\{(.+?)\\}|\\{([a-zA-Z0-9,-]+?)\\}')</span></em><a class="headerlink" href="#zensols.bibstract.domain.RegexFileParser.pattern" title="Link to this definition">¶</a></dt>
+<dd><p>The regular expression pattern used to find the references.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.TexPathIterator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.domain.</span></span><span class="sig-name descname"><span class="pre">TexPathIterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/domain.html#TexPathIterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.domain.TexPathIterator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Base class that finds LaTeX files (<code class="docutils literal notranslate"><span class="pre">.tex</span></code>, <code class="docutils literal notranslate"><span class="pre">.sty</span></code>, etc).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.TexPathIterator.TEX_FILE_REGEX">
+<span class="sig-name descname"><span class="pre">TEX_FILE_REGEX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('.+\\.(?:tex|sty|cls)$')</span></em><a class="headerlink" href="#zensols.bibstract.domain.TexPathIterator.TEX_FILE_REGEX" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.TexPathIterator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.domain.TexPathIterator.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.domain.TexPathIterator.texpaths">
+<span class="sig-name descname"><span class="pre">texpaths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#zensols.bibstract.domain.TexPathIterator.texpaths" title="Link to this definition">¶</a></dt>
+<dd><p>Either a file or directory to recursively scan for files with LaTex citation
+references.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract.extractor">
+<span id="zensols-bibstract-extractor-module"></span><h2>zensols.bibstract.extractor module<a class="headerlink" href="#module-zensols.bibstract.extractor" title="Link to this heading">¶</a></h2>
+<p>Extract BibTex references from a Tex file and add them from a master BibTex
+file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.extractor.</span></span><span class="sig-name descname"><span class="pre">Extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_bib</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator" title="zensols.bibstract.domain.TexPathIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TexPathIterator</span></code></a></p>
+<p>Extracts references, parses the BibTex master source file, and extracts
+matching references from the LaTex file.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converter_library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_bib</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.bibtex_ids">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bibtex_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">iter</span></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.bibtex_ids" title="Link to this definition">¶</a></dt>
+<dd><p>Return all BibTex string IDs.  These could be BetterBibtex citation
+references.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.converter_library">
+<span class="sig-name descname"><span class="pre">converter_library</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary" title="zensols.bibstract.domain.ConverterLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConverterLibrary</span></code></a></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.converter_library" title="Link to this definition">¶</a></dt>
+<dd><p>The converter library used to print what’s available.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.converters">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">converters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#zensols.bibstract.domain.Converter" title="zensols.bibstract.domain.Converter"><span class="pre">Converter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.converters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.database">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">database</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">BibDatabase</span></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.database" title="Link to this definition">¶</a></dt>
+<dd><p>Return the BibTex Python object representation of master file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.entries">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.entries" title="Link to this definition">¶</a></dt>
+<dd><p>The BibTex entries parsed from the master bib file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.extract">
+<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writer=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extracted_entries=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.extract" title="Link to this definition">¶</a></dt>
+<dd><p>Extract the master source BibTex matching citation references from
+the LaTex file(s) and write them to <code class="docutils literal notranslate"><span class="pre">writer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>writer</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOWrapper" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOWrapper</span></code></a></span>) – the BibTex entry data sink</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.extract_ids">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><span class="pre">set</span></a></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.extract_ids" title="Link to this definition">¶</a></dt>
+<dd><p>Return the set of BibTex references to be extracted.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.extracted_entries">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extracted_entries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.extracted_entries" title="Link to this definition">¶</a></dt>
+<dd><p>The BibTex entries parsed from the master bib file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.get_entry">
+<span class="sig-name descname"><span class="pre">get_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">citation_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.get_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.get_entry" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.master_bib">
+<span class="sig-name descname"><span class="pre">master_bib</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.master_bib" title="Link to this definition">¶</a></dt>
+<dd><p>The path to the master BibTex file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.print_bibtex_ids">
+<span class="sig-name descname"><span class="pre">print_bibtex_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.print_bibtex_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.print_bibtex_ids" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.print_extracted_ids">
+<span class="sig-name descname"><span class="pre">print_extracted_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.print_extracted_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.print_extracted_ids" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.print_texfile_refs">
+<span class="sig-name descname"><span class="pre">print_texfile_refs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.print_texfile_refs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.print_texfile_refs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.tex_refs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tex_refs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><span class="pre">set</span></a></em><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.tex_refs" title="Link to this definition">¶</a></dt>
+<dd><p>Return the set of parsed citation references.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.extractor.Extractor.write_entry">
+<span class="sig-name descname"><span class="pre">write_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bwriter=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">writer=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/extractor.html#Extractor.write_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.extractor.Extractor.write_entry" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract.pkg">
+<span id="zensols-bibstract-pkg-module"></span><h2>zensols.bibstract.pkg module<a class="headerlink" href="#module-zensols.bibstract.pkg" title="Link to this heading">¶</a></h2>
+<p>Find packages used in the tex path.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zensols.bibstract.pkg.</span></span><span class="sig-name descname"><span class="pre">PackageFinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">re.compile('.*')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/pkg.html#PackageFinder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator" title="zensols.bibstract.domain.TexPathIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TexPathIterator</span></code></a></p>
+<p>Find packages used in the tex path.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texpaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package_regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">re.compile('.*')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder.get_packages">
+<span class="sig-name descname"><span class="pre">get_packages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/bibstract/pkg.html#PackageFinder.get_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder.get_packages" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder.inverse">
+<span class="sig-name descname"><span class="pre">inverse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder.inverse" title="Link to this definition">¶</a></dt>
+<dd><p>Whether to invert the packages with all those packages found in
+<a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.library_dirs" title="zensols.bibstract.pkg.PackageFinder.library_dirs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">library_dirs</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder.library_dirs">
+<span class="sig-name descname"><span class="pre">library_dirs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder.library_dirs" title="Link to this definition">¶</a></dt>
+<dd><p>The list of library paths.  Each path is not traversed to find packages.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zensols.bibstract.pkg.PackageFinder.package_regex">
+<span class="sig-name descname"><span class="pre">package_regex</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a><span class="pre">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a><span class="pre">,</span> <a class="reference external" href="https://docs.python.org/3/library/re.html#re.Pattern" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pattern</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">re.compile('.*')</span></em><a class="headerlink" href="#zensols.bibstract.pkg.PackageFinder.package_regex" title="Link to this definition">¶</a></dt>
+<dd><p>The regular expression used to filter what to return.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-zensols.bibstract">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.bibstract" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../CONTRIBUTING.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contributing</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../api.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">API Reference</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025 Paul Landes
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">zensols.bibstract package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-zensols.bibstract.app">zensols.bibstract.app module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application"><code class="docutils literal notranslate"><span class="pre">Application</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.__init__"><code class="docutils literal notranslate"><span class="pre">Application.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.config_factory"><code class="docutils literal notranslate"><span class="pre">Application.config_factory</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.converter_library"><code class="docutils literal notranslate"><span class="pre">Application.converter_library</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.converters"><code class="docutils literal notranslate"><span class="pre">Application.converters()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.export"><code class="docutils literal notranslate"><span class="pre">Application.export()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.log_name"><code class="docutils literal notranslate"><span class="pre">Application.log_name</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.package"><code class="docutils literal notranslate"><span class="pre">Application.package()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.print_bibtex_ids"><code class="docutils literal notranslate"><span class="pre">Application.print_bibtex_ids()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.print_entry"><code class="docutils literal notranslate"><span class="pre">Application.print_entry()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.print_extracted_ids"><code class="docutils literal notranslate"><span class="pre">Application.print_extracted_ids()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.app.Application.print_texfile_refs"><code class="docutils literal notranslate"><span class="pre">Application.print_texfile_refs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract.cli">zensols.bibstract.cli module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.cli.ApplicationFactory"><code class="docutils literal notranslate"><span class="pre">ApplicationFactory</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.cli.ApplicationFactory.__init__"><code class="docutils literal notranslate"><span class="pre">ApplicationFactory.__init__()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract.converter">zensols.bibstract.converter module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.NAME"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.__init__"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.config_factory"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.config_factory</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.converters"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.converters</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.excludes"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.excludes</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ConditionalConverter.includes"><code class="docutils literal notranslate"><span class="pre">ConditionalConverter.includes</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter"><code class="docutils literal notranslate"><span class="pre">CopyOrMoveKeyConverter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.NAME"><code class="docutils literal notranslate"><span class="pre">CopyOrMoveKeyConverter.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.__init__"><code class="docutils literal notranslate"><span class="pre">CopyOrMoveKeyConverter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.CopyOrMoveKeyConverter.fields"><code class="docutils literal notranslate"><span class="pre">CopyOrMoveKeyConverter.fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter.NAME"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter.__init__"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter.format"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter.format</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter.source_field"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter.source_field</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.DateToYearConverter.update_fields"><code class="docutils literal notranslate"><span class="pre">DateToYearConverter.update_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.RemoveConverter"><code class="docutils literal notranslate"><span class="pre">RemoveConverter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.RemoveConverter.NAME"><code class="docutils literal notranslate"><span class="pre">RemoveConverter.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.RemoveConverter.__init__"><code class="docutils literal notranslate"><span class="pre">RemoveConverter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.RemoveConverter.keys"><code class="docutils literal notranslate"><span class="pre">RemoveConverter.keys</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ReplaceValue"><code class="docutils literal notranslate"><span class="pre">ReplaceValue</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ReplaceValue.NAME"><code class="docutils literal notranslate"><span class="pre">ReplaceValue.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ReplaceValue.__init__"><code class="docutils literal notranslate"><span class="pre">ReplaceValue.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.ReplaceValue.fields"><code class="docutils literal notranslate"><span class="pre">ReplaceValue.fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.UpdateOrAddValue"><code class="docutils literal notranslate"><span class="pre">UpdateOrAddValue</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.converter.UpdateOrAddValue.NAME"><code class="docutils literal notranslate"><span class="pre">UpdateOrAddValue.NAME</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.UpdateOrAddValue.__init__"><code class="docutils literal notranslate"><span class="pre">UpdateOrAddValue.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.converter.UpdateOrAddValue.fields"><code class="docutils literal notranslate"><span class="pre">UpdateOrAddValue.fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract.domain">zensols.bibstract.domain module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.BibstractError"><code class="docutils literal notranslate"><span class="pre">BibstractError</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.BibstractError.__module__"><code class="docutils literal notranslate"><span class="pre">BibstractError.__module__</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.Converter"><code class="docutils literal notranslate"><span class="pre">Converter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.Converter.ENTRY_TYPE"><code class="docutils literal notranslate"><span class="pre">Converter.ENTRY_TYPE</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.Converter.__init__"><code class="docutils literal notranslate"><span class="pre">Converter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.Converter.convert"><code class="docutils literal notranslate"><span class="pre">Converter.convert()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.Converter.name"><code class="docutils literal notranslate"><span class="pre">Converter.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.__init__"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.config_factory"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.config_factory</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.converter_class_names"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.converter_class_names</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.converter_names"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.converter_names</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.converters"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.converters</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.converters_by_name"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.converters_by_name</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.ConverterLibrary.write"><code class="docutils literal notranslate"><span class="pre">ConverterLibrary.write()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter"><code class="docutils literal notranslate"><span class="pre">DestructiveConverter</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter.__init__"><code class="docutils literal notranslate"><span class="pre">DestructiveConverter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.DestructiveConverter.destructive"><code class="docutils literal notranslate"><span class="pre">DestructiveConverter.destructive</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser"><code class="docutils literal notranslate"><span class="pre">RegexFileParser</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.MULTI_REF_REGEX"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.MULTI_REF_REGEX</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.REF_REGEX"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.REF_REGEX</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.__init__"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.collector"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.collector</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.find"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.find()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.RegexFileParser.pattern"><code class="docutils literal notranslate"><span class="pre">RegexFileParser.pattern</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator"><code class="docutils literal notranslate"><span class="pre">TexPathIterator</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator.TEX_FILE_REGEX"><code class="docutils literal notranslate"><span class="pre">TexPathIterator.TEX_FILE_REGEX</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator.__init__"><code class="docutils literal notranslate"><span class="pre">TexPathIterator.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.domain.TexPathIterator.texpaths"><code class="docutils literal notranslate"><span class="pre">TexPathIterator.texpaths</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract.extractor">zensols.bibstract.extractor module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor"><code class="docutils literal notranslate"><span class="pre">Extractor</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.__init__"><code class="docutils literal notranslate"><span class="pre">Extractor.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.bibtex_ids"><code class="docutils literal notranslate"><span class="pre">Extractor.bibtex_ids</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.converter_library"><code class="docutils literal notranslate"><span class="pre">Extractor.converter_library</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.converters"><code class="docutils literal notranslate"><span class="pre">Extractor.converters</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.database"><code class="docutils literal notranslate"><span class="pre">Extractor.database</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.entries"><code class="docutils literal notranslate"><span class="pre">Extractor.entries</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.extract"><code class="docutils literal notranslate"><span class="pre">Extractor.extract()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.extract_ids"><code class="docutils literal notranslate"><span class="pre">Extractor.extract_ids</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.extracted_entries"><code class="docutils literal notranslate"><span class="pre">Extractor.extracted_entries</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.get_entry"><code class="docutils literal notranslate"><span class="pre">Extractor.get_entry()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.master_bib"><code class="docutils literal notranslate"><span class="pre">Extractor.master_bib</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.print_bibtex_ids"><code class="docutils literal notranslate"><span class="pre">Extractor.print_bibtex_ids()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.print_extracted_ids"><code class="docutils literal notranslate"><span class="pre">Extractor.print_extracted_ids()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.print_texfile_refs"><code class="docutils literal notranslate"><span class="pre">Extractor.print_texfile_refs()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.tex_refs"><code class="docutils literal notranslate"><span class="pre">Extractor.tex_refs</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.extractor.Extractor.write_entry"><code class="docutils literal notranslate"><span class="pre">Extractor.write_entry()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract.pkg">zensols.bibstract.pkg module</a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder"><code class="docutils literal notranslate"><span class="pre">PackageFinder</span></code></a><ul>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.__init__"><code class="docutils literal notranslate"><span class="pre">PackageFinder.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.get_packages"><code class="docutils literal notranslate"><span class="pre">PackageFinder.get_packages()</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.inverse"><code class="docutils literal notranslate"><span class="pre">PackageFinder.inverse</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.library_dirs"><code class="docutils literal notranslate"><span class="pre">PackageFinder.library_dirs</span></code></a></li>
+<li><a class="reference internal" href="#zensols.bibstract.pkg.PackageFinder.package_regex"><code class="docutils literal notranslate"><span class="pre">PackageFinder.package_regex</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-zensols.bibstract">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>
