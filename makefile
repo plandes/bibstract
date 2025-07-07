@@ -1,14 +1,15 @@
-## makefile automates the build and deployment for python projects
+#@meta {author: "Paul Landes"}
+#@meta {desc: "build and deployment for python project", date: "2025-07-06"}
 
-## build config
+
+## Build config
+#
 PROJ_TYPE =		python
-PROJ_MODULES =		git python-resources python-cli python-doc python-doc-deploy
-INFO_TARGETS +=		appinfo
+PROJ_MODULES =		python/doc python/package python/deploy
 
-#PY_SRC_TEST_PAT = "test_p*.py"
+#PY_TEST_GLOB ?=		test_e*.py
 
+
+## Includes
+#
 include ./zenbuild/main.mk
-
-.PHONY:			appinfo
-appinfo:
-			@echo "app-resources-dir: $(RESOURCES_DIR)"
