@@ -7,8 +7,6 @@
 PROJ_TYPE =		python
 PROJ_MODULES =		python/doc python/package python/deploy
 
-#PY_TEST_GLOB ?=		test_e*.py
-
 
 ## Includes
 #

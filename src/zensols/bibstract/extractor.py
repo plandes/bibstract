@@ -141,8 +141,8 @@ class Extractor(TexPathIterator):
 
     def extract(self, writer: TextIOWrapper = sys.stdout,
                 extracted_entries: Dict[str, Dict[str, str]] = None):
-        """Extract the master source BibTex matching citation references from the LaTex
-        file(s) and write them to ``writer``.
+        """Extract the master source BibTex matching citation references from
+        the LaTex file(s) and write them to ``writer``.
 
         :param writer: the BibTex entry data sink
 
@@ -150,12 +150,14 @@ class Extractor(TexPathIterator):
         bwriter = BibTexWriter()
         if extracted_entries is None:
             extracted_entries = self.extracted_entries
-        for bid, entry in extracted_entries.items():
+        for i, (bid, entry) in enumerate(extracted_entries.items()):
             if logger.isEnabledFor(logging.DEBUG):
                 estr = str(entry)[:80]
                 logger.debug(f'extracting: {bid}: <{estr}>')
             if logger.isEnabledFor(logging.INFO):
                 logger.info(f'writing entry {bid}')
+            if i > 0:
+                writer.write('\n')
             self.write_entry(entry, bwriter, writer)
         writer.flush()
 

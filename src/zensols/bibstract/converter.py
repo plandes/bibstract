@@ -197,7 +197,7 @@ class ConditionalConverter(Converter):
     """
     @persisted('_converter_insts')
     def _get_converters(self):
-        lib: ConverterLibrary = self.config_factory('converter_library')
+        lib: ConverterLibrary = self.config_factory('bib_converter_library')
         return tuple(map(lambda n: lib[n], self.converters))
 
     def _matches(self, entry: Dict[str, str], crit: Dict[str, str],

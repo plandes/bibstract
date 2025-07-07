@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class Exporter(object):
+class Application(object):
     """This utility extracts Bib(La)Tex references from a (La)Tex.
 
     """
@@ -29,13 +29,14 @@ class Exporter(object):
     """The name of the package logger."""
 
     def _get_extractor(self, texpath: str) -> Extractor:
-        return self.config_factory.new_instance('extractor', texpaths=texpath)
+        return self.config_factory.new_instance(
+            'bib_extractor', texpaths=texpath)
 
     def _get_package_finder(self, texpath: str, package_regex: str,
                             library_dir: str, inverse: bool = False) -> \
             PackageFinder:
         return self.config_factory.new_instance(
-            'package_finder',
+            'bib_package_finder',
             texpaths=texpath,
             package_regex=package_regex,
             library_dirs=library_dir,

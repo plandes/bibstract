@@ -32,7 +32,7 @@ project:
     # pypi dependencies added to 'project'
     dependencies:
       - 'bibtexparser==1.4.3'
-      - 'dateparser~=1.1.0'
+      - 'dateparser~=1.2.2'
       - 'zensols.util~=1.15.11'
   # the program is called on the command line
   has_entry_points: true

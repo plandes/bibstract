@@ -42,10 +42,16 @@ class TestExtractor(TestExtractorBase):
 
 
 class TestExport(TestExtractorBase):
+    WRITE = False
+
     def test_export(self):
+        path = Path('test-resources/export.bib')
         sio = StringIO()
         self.extractor.extract(sio)
-        with open('test-resources/export.bib') as f:
+        if self.WRITE:
+            with open(path, 'w') as f:
+                f.write(sio.getvalue())
+        with open(path) as f:
             should = f.read()
         self.assertEqual(should, sio.getvalue())
 
