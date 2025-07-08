@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+### Changed
+- Use program name log format.
+
+
 ## [1.4.0] - 2025-07-06
 ### Changed
 - Switch build tools to [pixi].
