@@ -154,8 +154,6 @@ class Extractor(TexPathIterator):
             if logger.isEnabledFor(logging.DEBUG):
                 estr = str(entry)[:80]
                 logger.debug(f'extracting: {bid}: <{estr}>')
-            if logger.isEnabledFor(logging.INFO):
-                logger.info(f'writing entry {bid}')
             if i > 0:
                 writer.write('\n')
             self.write_entry(entry, bwriter, writer)

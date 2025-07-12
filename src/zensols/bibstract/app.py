@@ -96,6 +96,7 @@ class Application(object):
         else:
             with open(output, 'w') as f:
                 extractor.extract(writer=f)
+            logger.info(f'wrote: {output}')
 
     def package(self, texpath: str, libpath: str = None,
                 package_regex: str = None, no_extension: bool = False,
