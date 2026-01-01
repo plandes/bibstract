@@ -1,7 +1,7 @@
 # BibTeX Extract and Populate
 
 [![PyPI][pypi-badge]][pypi-link]
-[![Python 3.11][python311-badge]][python311-link]
+[![Python 3.13][python313-badge]][python313-link]
 [![Build Status][build-badge]][build-link]
 
 This utility extracts [BibTeX] references (a.k.a *markers*) from a [(La)TeX]
@@ -72,7 +72,7 @@ modify each parsed BibTeX entry in succession.  Currently there the following:
   copy operation becomes a move.
 
 Converters can be set be set and configured in the [configuration file].  See
-the [test cases](test/python) for more examples.
+the [test cases](tests) for more examples.
 
 
 ## Configuration
@@ -121,38 +121,23 @@ An extensive changelog is available [here](CHANGELOG.md).
 ## Community
 
 Please star this repository and let me know how and where you use this API.
-Contributions as pull requests, feedback and any input is welcome.
+[Contributions](CONTRIBUTING.md) as pull requests, feedback, and any input is
+welcome.
 
 
 ## License
 
-Copyright (c) 2020 - 2025 Paul Landes
+[MIT License](LICENSE.md)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Copyright (c) 2020 - 2026 Paul Landes
 
 
 <!-- links -->
 [pypi]: https://pypi.org/project/zensols.bibstract/
 [pypi-link]: https://pypi.python.org/pypi/zensols.bibstract
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.bibstract.svg
-[python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
-[python311-link]: https://www.python.org/downloads/release/python-3110
+[python313-badge]: https://img.shields.io/badge/python-3.13-blue.svg
+[python313-link]: https://www.python.org/downloads/release/python-3130
 [build-badge]: https://github.com/plandes/bibstract/workflows/CI/badge.svg
 [build-link]: https://github.com/plandes/bibstract/actions
 

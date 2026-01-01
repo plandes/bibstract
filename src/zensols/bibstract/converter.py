@@ -31,7 +31,9 @@ class DateToYearConverter(DestructiveConverter):
     """The name of the converter."""
 
     source_field: str = field(default='date')
+    """The field that has the date to parse into a :class:`~datetime.datetime`.
 
+    """
     update_fields: Tuple[str] = field(default=('year',))
     """The fields to update using the new date format."""
 
