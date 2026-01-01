@@ -33,8 +33,8 @@ class TexPathIterator(object):
     TEX_FILE_REGEX = re.compile(r'.+\.(?:tex|sty|cls)$')
 
     texpaths: Union[str, Path, Sequence[Path]] = field()
-    """Either a file or directory to recursively scan for files with LaTex citation
-    references.
+    """Either a file or directory to recursively scan for files with LaTex
+    citation references.
 
     """
     def __post_init__(self):
@@ -73,7 +73,8 @@ class TexPathIterator(object):
         return filter(self._is_tex_file, files)
 
     def _is_tex_file(self, path: Path) -> bool:
-        """Return whether or not path is a file that might contain citation references.
+        """Return whether or not path is a file that might contain citation
+        references.
 
         """
         return path.is_file() and \
@@ -86,8 +87,8 @@ class RegexFileParser(object):
 
     """
     REF_REGEX = re.compile(r'\\cite\{(.+?)\}|\{([a-zA-Z0-9,-]+?)\}')
-    """The default regular expression used to find citation references in sty and
-    tex files (i.e. ``\\cite`` commands).
+    """The default regular expression used to find citation references in sty
+    and tex files (i.e. ``\\cite`` commands).
 
     """
     MULTI_REF_REGEX = re.compile(r'[^,\s]+')
@@ -116,8 +117,8 @@ class RegexFileParser(object):
 
 @dataclass
 class Converter(object):
-    """A base class to convert fields of a BibTex entry (which is of type ``dict``)
-    to another field.
+    """A base class to convert fields of a BibTex entry (which is of type
+    ``dict``) to another field.
 
     Subclasses should override :meth:`_convert`.
 
@@ -139,8 +140,8 @@ class Converter(object):
         return entry
 
     def _convert(self, entry: Dict[str, str]):
-        """The templated method subclasses should extend.  The default base class
-        implementation is to return what's given as an identity mapping.
+        """The templated method subclasses should extend.  The default base
+        class implementation is to return what's given as an identity mapping.
 
         """
         return entry
@@ -155,10 +156,11 @@ class DestructiveConverter(Converter):
 
     """
     destructive: bool = field(default=False)
-    """If true, remove the original field if converting from one key to another in
-    the Bibtex entry.
+    """If true, remove the original field if converting from one key to another
+    in the Bibtex entry.
 
     """
+    pass
 
 
 @dataclass

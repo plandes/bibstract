@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class DateToYearConverter(DestructiveConverter):
-    """Converts the year part of a date field to a year.  This is useful when using
-    Zotero's Better Biblatex extension that produces BibLatex formats, but you
-    need BibTex entries.
+    """Converts the year part of a date field to a year.  This is useful when
+    using Zotero's Better Biblatex extension that produces BibLatex formats, but
+    you need BibTex entries.
 
     """
     NAME = 'date_year'
@@ -71,8 +71,8 @@ class CopyOrMoveKeyConverter(DestructiveConverter):
     """The name of the converter."""
 
     fields: Dict[str, str] = field(default_factory=dict)
-    """The source to target list of fields specifying which keys to keys get copied
-    or moved.
+    """The source to target list of fields specifying which keys to keys get
+    copied or moved.
 
     """
     def _convert(self, entry: Dict[str, str]):
@@ -92,8 +92,8 @@ class RemoveConverter(DestructiveConverter):
     """The name of the converter."""
 
     keys: Tuple[str] = field(default=())
-    """A list of regular expressions, that if match the entry key, will remove the
-    entry.
+    """A list of regular expressions, that if match the entry key, will remove
+    the entry.
 
     """
     def __post_init__(self):
@@ -118,8 +118,8 @@ class UpdateOrAddValue(Converter):
     NAME = 'update'
 
     fields: List[Tuple[str, str]] = field(default_factory=list)
-    """A list of tuples, each tuple having the key to add and the value to update
-    or add using Python interpolation syntax from existing entry keys.
+    """A list of tuples, each tuple having the key to add and the value to
+    update or add using Python interpolation syntax from existing entry keys.
 
     """
     def _convert(self, entry: Dict[str, str]):
