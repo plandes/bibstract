@@ -65,10 +65,7 @@ class TestDateYearConverters(TestExtractorBase):
         with open('test-resources/date-convert.json') as f:
             should = json.load(f)
         id_to_dates = {}
-        # print()
-        # from pprint import pprint
         for bid, entry in self.extractor.extracted_entries.items():
-            #pprint(entry)
             id_to_dates[bid] = f"{entry['date']} -> {entry['year']}"
         self.assertEqual(should, id_to_dates)
 

@@ -2,8 +2,7 @@
 
 """
 __author__ = 'Paul Landes'
-
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, ClassVar
 from dataclasses import dataclass, field
 from datetime import datetime
 import logging
@@ -23,6 +22,11 @@ class DateToYearConverter(DestructiveConverter):
     you need BibTex entries.
 
     """
+    _YEAR_REGEX: ClassVar[re.Pattern] = re.compile(r'^(\d{4})$')
+    _YEAR_MONTH_REGEX: ClassVar[re.Pattern] = re.compile(
+        r'^(?P<y>\d{4})-(?P<m>0[1-9]|1[0-2])$')
+    _ISO_DATE_REGEX: ClassVar[re.Pattern] = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+
     NAME = 'date_year'
     """The name of the converter."""
 
@@ -43,8 +47,19 @@ class DateToYearConverter(DestructiveConverter):
 
     def _convert(self, entry: Dict[str, str]):
         if self.source_field in entry:
-            dt_str = entry[self.source_field]
-            dt: datetime = dateparser.parse(dt_str)
+            dt: datetime = None
+            dt_str: str = entry[self.source_field]
+            m: re.Match = self._YEAR_REGEX.match(dt_str)
+            if m is not None:
+                dt = datetime(int(m.group(1)), 1, 1)
+            if dt is None:
+                m: re.Match = self._YEAR_MONTH_REGEX.match(dt_str)
+                if m is not None:
+                    dt = datetime(int(m['y']), int(m['m']), 1)
+            if dt is None and self._ISO_DATE_REGEX.match(dt_str) is not None:
+                dt = datetime.fromisoformat(dt_str)
+            if dt is None:
+                dt = dateparser.parse(dt_str)
             if dt is None:
                 raise BibstractError(
                     f"Could not parse date: {dt_str} for entry {entry['ID']}")
